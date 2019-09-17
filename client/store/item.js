@@ -7,25 +7,24 @@ import history from '../history'
 const GET_ALL_ITEMS = 'GET_ALL_ITEMS'
 
 /**
- * INITIAL STATE
- */
-const initialState = {
-  allItems: [],
-  currentItem: {}
-}
-
-/**
  * ACTION CREATORS
  */
-const getItems = items => ({type: GET_ALL_ITEMS, items})
+const getItems = items => {
+  return {
+    type: GET_ALL_ITEMS,
+    items
+  }
+}
 
 /**
  * THUNK CREATORS
  */
-export const gotItems = () => async dispatch => {
+export const getItemsThunk = () => async dispatch => {
+  console.log('flag 1')
   try {
     const res = await axios.get('/api/items')
-    dispatch(getItems(res.data || initialState))
+    console.log('res.data', res.data)
+    dispatch(getItems(res.data))
   } catch (err) {
     console.error(err)
   }
@@ -34,14 +33,11 @@ export const gotItems = () => async dispatch => {
 /**
  * REDUCER
  */
-export default function(state = initialState, action) {
+export default function(items = [], action) {
   switch (action.type) {
     case GET_ALL_ITEMS:
-      return {
-        ...state,
-        allItems: action.items
-      }
+      return action.items
     default:
-      return state
+      return items
   }
 }
