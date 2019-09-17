@@ -15,18 +15,20 @@ class AllItems extends React.Component {
     console.log('This.prop in renders....', this.props)
     return (
       <div>
-        {this.props.items ? (
-          <div className="items-list">
-            {this.props.items.map(item => (
-              <div>
-                <p>{item.name}</p>
-                <img src={item.img} />
-              </div>
-            ))}
-          </div>
-        ) : (
-          'err'
-        )}
+        <center>
+          {this.props.items ? (
+            <div className="items-list">
+              {this.props.items.map(item => (
+                <div>
+                  <p>{item.name}</p>
+                  <img src={item.img} />
+                </div>
+              ))}
+            </div>
+          ) : (
+            'err'
+          )}
+        </center>
       </div>
     )
   }
