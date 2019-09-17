@@ -7,14 +7,6 @@ import history from '../history'
 const GET_ALL_ITEMS = 'GET_ALL_ITEMS'
 
 /**
- * INITIAL STATE
- */
-// const initialState = {
-//   allItems: []
-//   // currentItem: {}
-// }
-
-/**
  * ACTION CREATORS
  */
 const getItems = items => {
