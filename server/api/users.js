@@ -15,3 +15,19 @@ router.get('/', async (req, res, next) => {
     next(err)
   }
 })
+
+router.get('/:id', async (req, res, next) => {
+  try {
+    const id = req.params.id
+    const user = await User.findOne({
+      where: {
+        id
+      }
+    })
+    if (user) {
+      res.json(user)
+    }
+  } catch (err) {
+    next(err)
+  }
+})
