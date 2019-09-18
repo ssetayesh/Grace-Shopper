@@ -22,8 +22,8 @@ describe('The User Model', () => {
     })
   })
 
-  describe('user attributes', async () => {
+  it('user attributes', async () => {
     const savedUser = await user.save()
-    expect(savedUser.title).to.equal('')
+    expect(savedUser.email).to.equal('')
   })
 })
