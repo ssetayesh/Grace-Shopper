@@ -7,12 +7,9 @@ class AllItems extends React.Component {
     super(props)
   }
   componentDidMount() {
-    console.log('this.props', this.props)
     this.props.getItemsThunk()
-    console.log('this.props hello', this.props)
   }
   render() {
-    console.log('This.prop in renders....', this.props)
     return (
       <div>
         <center>
