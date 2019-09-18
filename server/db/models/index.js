@@ -1,13 +1,16 @@
 const User = require('./user')
 const Item = require('./item')
-const Cart = require('./cart')
+const Orders = require('./orders')
+const orderItems = require('./orderItems')
 
 // ASSOCIATIONS
-User.hasOne(Cart)
-Item.hasMany(Cart)
+User.hasOne(Orders)
+Item.belongsToMany(Orders, {through: 'orderItems', foreignKey: 'itemId'})
+Orders.belongsToMany(Item, {through: 'orderItems', foreignKey: 'orderId'})
 
 module.exports = {
   User,
   Item,
-  Cart
+  Orders,
+  orderItems
 }

@@ -13,7 +13,7 @@ const Item = db.define('item', {
     type: Sequelize.INTEGER
   },
   price: {
-    type: Sequelize.FLOAT
+    type: Sequelize.DECIMAL(10, 2)
   },
   category: {
     type: Sequelize.ARRAY(Sequelize.STRING)
