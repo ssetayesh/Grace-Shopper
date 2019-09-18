@@ -14,9 +14,6 @@ const Item = db.define('item', {
   },
   price: {
     type: Sequelize.DECIMAL(10, 2)
-  },
-  category: {
-    type: Sequelize.ARRAY(Sequelize.STRING)
   }
 })
 

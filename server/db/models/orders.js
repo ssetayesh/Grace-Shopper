@@ -8,7 +8,7 @@ const Orders = db.define('orders', {
   totalPrice: {
     type: Sequelize.DECIMAL(10, 2)
   },
-  status: {
+  submitted: {
     type: Sequelize.BOOLEAN,
     default: false
   }
