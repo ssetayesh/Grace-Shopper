@@ -52,7 +52,7 @@ createdb $MY_APP_NAME
 createdb $MY_APP_NAME-test
 ```
 
-* By default, running `npm test` will use `boilermaker-test`, while
+* By default, running `npm test` will use ``, while
   regular development uses `boilermaker`
 * Create a file called `secrets.js` in the project root
   * This file is listed in `.gitignore`, and will _only_ be required
