@@ -5,6 +5,9 @@ const Item = db.define('item', {
   name: {
     type: Sequelize.STRING
   },
+  description: {
+    type: Sequelize.TEXT
+  },
   img: {
     type: Sequelize.STRING,
     defaultValue: 'https://image.flaticon.com/icons/svg/8/8109.svg'

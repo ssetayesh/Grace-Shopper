@@ -9,7 +9,6 @@ const App = () => {
     <div>
       <Navbar />
       <Routes />
-      <Cart> /></Cart>
     </div>
   )
 }
