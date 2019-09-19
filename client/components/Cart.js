@@ -7,38 +7,43 @@ class Cart extends React.Component {
     super(props)
   }
 
-  componentDidMount() {
-    this.props.gotCart()
-  }
+  // componentDidMount() {
+  //   // userId = this.user.id || 'guest'
+  //   this.props.gotCart(1)
+  // }
 
   render() {
+    console.log('this', this)
+    console.log('this.props', this.props)
     return (
       <div>
-        <center>
-          {this.props.items ? (
-            <div className="items-list">
-              {this.props.cart.map(item => (
-                <div key={item.id}>
-                  <p>{item.name}</p>
-                  <img src={item.img} />
-                </div>
-              ))}
-            </div>
-          ) : (
-            'err'
-          )}
-        </center>
+        Hello world
+        {this.props.cart}
+        {/* <center>
+        {this.props.cart ?
+          <div className="items-list">
+            {this.props.cart.map(item => (
+              <div key={item.id}>
+                <p>{item.name}</p>
+                <img src={item.img} />
+              </div>
+            ))}
+          </div>
+         :
+          <div>Cart Empty</div>
+       }
+      </center> */}
       </div>
     )
   }
 }
 
 const mapStateToProps = state => ({
-  cart: state
+  cart: state.cart
 })
 
 const mapDispatchToProps = dispatch => ({
-  gotCart: () => dispatch(gotCart())
+  gotCart: userId => dispatch(gotCart(userId))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Cart)

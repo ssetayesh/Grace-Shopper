@@ -4,7 +4,7 @@ import history from '../history'
 /**
  * ACTION TYPES
  */
-const GET_CART = 'SEE_CART'
+const GET_CART = 'GET_CART'
 const ADD_TO_CART = 'ADD_TO_CART'
 const REMOVE_FROM_CART = 'REMOVE_FROM_CART'
 
@@ -16,10 +16,9 @@ const initialState = []
 /**
  * ACTION CREATORS
  */
-const getCart = items => ({type: SEE_CART, items})
+const getCart = items => ({type: GET_CART, items})
 const addToCart = item => ({type: ADD_TO_CART, item})
 const removeFromCart = itemId => ({type: REMOVE_FROM_CART, itemId})
-
 /**
  * THUNK CREATORS
  */
@@ -43,14 +42,18 @@ export const addedToCart = itemId => {
 
       dispatch(addToCart(res.data))
     } catch (error) {
-      next(err)
+      next(error)
     }
   }
 }
 
 export const removedFromCart = itemId => {
   return async dispatch => {
-    dispatch(removeFromCart(itemId))
+    try {
+      dispatch(removeFromCart(itemId))
+    } catch (error) {
+      next(error)
+    }
   }
 }
 
@@ -60,7 +63,7 @@ export const removedFromCart = itemId => {
 export default function(state = initialState, action) {
   switch (action.type) {
     case GET_CART:
-      return [...state, action.items]
+      return action.items
     case ADD_TO_CART:
       return [...state, action.item]
     case REMOVE_FROM_CART:
