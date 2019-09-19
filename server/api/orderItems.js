@@ -4,7 +4,7 @@ module.exports = router
 
 router.get('/', async (req, res, next) => {
   try {
-    const find = orderItems.findAll()
+    const find = await orderItems.findAll()
     res.json(find)
   } catch (error) {
     next(error)
@@ -13,7 +13,7 @@ router.get('/', async (req, res, next) => {
 
 router.post('/', async (req, res, next) => {
   try {
-    const createItemsInCart = orderItems.create(req.body)
+    const createItemsInCart = await orderItems.create(req.body)
     res.json(createItemsInCart)
   } catch (error) {
     next(error)
@@ -23,7 +23,7 @@ router.post('/', async (req, res, next) => {
 //edit items in cart
 router.put('/:id', async (req, res, next) => {
   try {
-    const find = orderItems.findById(req.params.id)
+    const find = await orderItems.findById(req.params.id)
     const updateFound = find.update(req.body)
     res.json(updateFound)
   } catch (error) {
@@ -33,8 +33,8 @@ router.put('/:id', async (req, res, next) => {
 
 router.delete('/:id', async (req, res, next) => {
   try {
-    const find = orderItems.findById(req.params.id)
-    const del = orderItems.destroy(find)
+    const find = await orderItems.findById(req.params.id)
+    const del = await orderItems.destroy(find)
     res.json(del)
   } catch (error) {
     next(error)
