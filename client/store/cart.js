@@ -4,7 +4,9 @@ import history from '../history'
 /**
  * ACTION TYPES
  */
-const SEE_CART = 'SEE_CART'
+const GET_CART = 'SEE_CART'
+const ADD_TO_CART = 'ADD_TO_CART'
+const REMOVE_FROM_CART = 'REMOVE_FROM_CART'
 
 /**
  * INITIAL STATE
@@ -14,20 +16,41 @@ const initialState = []
 /**
  * ACTION CREATORS
  */
-const seeCart = items => ({type: SEE_CART, items})
+const getCart = items => ({type: SEE_CART, items})
+const addToCart = item => ({type: ADD_TO_CART, item})
+const removeFromCart = itemId => ({type: REMOVE_FROM_CART, itemId})
 
 /**
  * THUNK CREATORS
  */
 
-export const getCart = userId => {
+export const gotCart = userId => {
   return async dispatch => {
     try {
-      const res = axios.get(/api/`${userId}` / cart)
-      dispatch(seeCart(res.data))
+      const res = await axios.get(`/api/${userId}/cart`)
+      dispatch(getCart(res.data))
     } catch (error) {
       next(err)
     }
+  }
+}
+
+export const addedToCart = itemId => {
+  return async dispatch => {
+    try {
+      const res = await axios.get(`/api/${itemId}`)
+      //await axios.post(`/api/${userId}/cart`)
+
+      dispatch(addToCart(res.data))
+    } catch (error) {
+      next(err)
+    }
+  }
+}
+
+export const removedFromCart = itemId => {
+  return async dispatch => {
+    dispatch(removeFromCart(itemId))
   }
 }
 
@@ -36,8 +59,12 @@ export const getCart = userId => {
  */
 export default function(state = initialState, action) {
   switch (action.type) {
-    case SEE_CART:
+    case GET_CART:
       return [...state, action.items]
+    case ADD_TO_CART:
+      return [...state, action.item]
+    case REMOVE_FROM_CART:
+      return [...state].map(item => item.id !== action.itemId)
     default:
       return state
   }
