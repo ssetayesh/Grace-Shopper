@@ -1,7 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {gotCart} from '../store/cart'
-import {me} from '../store/user'
 
 class Cart extends React.Component {
   constructor(props) {
@@ -9,19 +8,21 @@ class Cart extends React.Component {
   }
 
   componentDidMount() {
-    // userId = this.user.id || 'guest'
-    this.props.gotCart(2)
+    if (!this.props.id) {
+      // code should handle seeing guest's cart
+    }
+    this.props.gotCart(this.props.id)
   }
 
   render() {
-    console.log('this', this)
-    console.log('this.props', this.props)
+    const cart = this.props.cart[0]
+
     return (
       <div>
         <center>
-          {this.props.cart ? (
+          {cart ? (
             <div className="items-list">
-              {this.props.cart.map(item => (
+              {cart.items.map(item => (
                 <div key={item.id}>
                   <p>{item.name}</p>
                   <img src={item.img} />
@@ -38,12 +39,12 @@ class Cart extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  cart: state.cart.items
+  cart: state.cart,
+  id: state.user.id
 })
 
 const mapDispatchToProps = dispatch => ({
   gotCart: userId => dispatch(gotCart(userId))
-  // me: () => dispatch(m)
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Cart)
