@@ -26,7 +26,7 @@ const removeFromCart = itemId => ({type: REMOVE_FROM_CART, itemId})
 export const gotCart = userId => {
   return async dispatch => {
     try {
-      const res = await axios.get(`/api/${userId}/cart`)
+      const res = await axios.get(`/api/orders/user/${userId}/cart`)
       dispatch(getCart(res.data))
     } catch (error) {
       next(err)
@@ -37,7 +37,7 @@ export const gotCart = userId => {
 export const addedToCart = itemId => {
   return async dispatch => {
     try {
-      const res = await axios.get(`/api/${itemId}`)
+      const res = await axios.get(`/api/items/${itemId}`)
       //await axios.post(`/api/${userId}/cart`)
 
       dispatch(addToCart(res.data))
