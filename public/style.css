@@ -23,6 +23,10 @@ h1 {
   text-align: center;
 }
 
+h4 {
+  text-align: center;
+}
+
 form div {
   margin: 1em;
   display: inline-block;
@@ -48,4 +52,8 @@ form div {
   width: 50%;
   height: 50%;
   align-items: center;
+}
+
+button[type='button']:hover {
+  background-color: #45a049;
 }
