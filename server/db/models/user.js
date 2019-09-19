@@ -44,6 +44,14 @@ User.prototype.correctPassword = function(candidatePwd) {
   return User.encryptPassword(candidatePwd, this.salt()) === this.password()
 }
 
+User.prototype.isLoggedIn = function(id) {
+  if (this.id === id) {
+    return true
+  } else {
+    return false
+  }
+}
+
 /**
  * classMethods
  */

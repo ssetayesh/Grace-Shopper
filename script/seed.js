@@ -23,7 +23,7 @@ async function seed() {
       description:
         'Sweet and natural. It is used for self-protection. Its aspects are fruitfulness and virginity',
       img:
-        'https://i.pinimg.com/originals/b1/1f/78/b11f782fade08e0c91ff715d8f28b6f8.jpg',
+        'https://alivans.com/wp-content/uploads/2016/02/APPRENTICE_THUMB.jpg',
       quantity: 10,
       price: 30.0
     }),
@@ -88,7 +88,7 @@ async function seed() {
     Item.create({
       name: 'Redwood',
       description:
-        'Associated with drawing down power from Heaven to Earth, spells of religious seeking and discipline, spells of mystical union with nature and wild animals, hunting magic, the martial arts as spiritual discipline, and spells for innovation and sudden revelation.',
+        'Associated with drawing down power from Heaven to Earth, spells of religious seeking and discipline, spells of mystical union with nature and wild animals, hunting magic, and the martial arts as spiritual discipline.',
       img: 'https://alivans.com/wp-content/uploads/2016/02/REDWOOD_THUMB.jpg',
       quantity: 10,
       price: 65.0

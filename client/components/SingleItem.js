@@ -9,7 +9,7 @@ const SingleItem = props => {
       <h2>{item.name}</h2>
       <img src={item.img} className="wand-img" />
       <h3>${item.price}</h3>
-      {/* <h4>Description:{item.description}</h4> */}
+      <h4>{item.description}</h4>
       <button
         type="button"
         onClick={() => {
