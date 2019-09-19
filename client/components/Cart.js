@@ -9,19 +9,18 @@ class Cart extends React.Component {
   }
 
   componentDidMount() {
-    // userId = this.user.id || 'guest'
     this.props.gotCart(2)
   }
 
   render() {
-    console.log('this', this)
-    console.log('this.props', this.props)
+    const cart = this.props.cart[0]
+
     return (
       <div>
         <center>
-          {this.props.cart ? (
+          {cart ? (
             <div className="items-list">
-              {this.props.cart.map(item => (
+              {cart.items.map(item => (
                 <div key={item.id}>
                   <p>{item.name}</p>
                   <img src={item.img} />
@@ -38,12 +37,12 @@ class Cart extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  cart: state.cart.items
+  cart: state.cart
 })
 
 const mapDispatchToProps = dispatch => ({
-  gotCart: userId => dispatch(gotCart(userId))
-  // me: () => dispatch(m)
+  gotCart: userId => dispatch(gotCart(userId)),
+  me: () => dispatch(me())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Cart)
