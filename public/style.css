@@ -23,6 +23,10 @@ h1 {
   text-align: center;
 }
 
+h4 {
+  text-align: center;
+}
+
 form div {
   margin: 1em;
   display: inline-block;
