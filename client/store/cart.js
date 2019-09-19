@@ -38,7 +38,7 @@ export const addedToCart = itemId => {
   return async dispatch => {
     try {
       const res = await axios.get(`/api/items/${itemId}`)
-      //await axios.post(`/api/${userId}/cart`)
+      await axios.post('/api/orderItems/', res.data)
 
       dispatch(addToCart(res.data))
     } catch (error) {
