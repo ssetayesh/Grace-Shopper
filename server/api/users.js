@@ -24,8 +24,12 @@ router.get('/:id', async (req, res, next) => {
         id
       }
     })
-    if (user) {
+    if (user && user.isLoggedIn(req.user.id)) {
       res.json(user)
+    } else {
+      res
+        .status(404)
+        .send("You are trying to access someone else's information")
     }
   } catch (err) {
     next(err)
