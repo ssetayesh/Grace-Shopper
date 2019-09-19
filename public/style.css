@@ -49,3 +49,7 @@ form div {
   height: 50%;
   align-items: center;
 }
+
+button[type='button']:hover {
+  background-color: #45a049;
+}
