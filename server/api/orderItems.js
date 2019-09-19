@@ -31,12 +31,12 @@ router.put('/:id', async (req, res, next) => {
   }
 })
 
-router.delete('/:id', async (req, res, next) => {
-  try {
-    const find = await orderItems.findById(req.params.id)
-    const del = await orderItems.destroy(find)
-    res.json(del)
-  } catch (error) {
-    next(error)
-  }
-})
+// router.delete('/:id', async (req, res, next) => {
+//   try {
+//     const find = await orderItems.findById(req.params.id)
+//     const del = await orderItems.destroy(find)
+//     res.json(del)
+//   } catch (error) {
+//     next(error)
+//   }
+// })
