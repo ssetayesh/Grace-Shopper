@@ -1,34 +1,37 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {getItemsThunk} from '../store/item'
+import SingleItem from './SingleItem'
 
 class AllItems extends React.Component {
   constructor(props) {
     super(props)
   }
+
   componentDidMount() {
-    console.log('this.props', this.props)
     this.props.getItemsThunk()
-    console.log('this.props hello', this.props)
   }
+
+  handleAddToCart(id) {
+    console.log('id', id)
+  }
+
   render() {
-    console.log('This.prop in renders....', this.props)
     return (
       <div>
-        <center>
-          {this.props.items ? (
-            <div className="items-list">
-              {this.props.items.map(item => (
-                <div>
-                  <p>{item.name}</p>
-                  <img src={item.img} />
-                </div>
-              ))}
-            </div>
-          ) : (
-            'err'
-          )}
-        </center>
+        {this.props.items ? (
+          <div className="wands-list">
+            {this.props.items.map(item => (
+              <SingleItem
+                key={item.id}
+                item={item}
+                handleAddToCart={this.handleAddToCart}
+              />
+            ))}
+          </div>
+        ) : (
+          'err'
+        )}
       </div>
     )
   }

@@ -20,7 +20,21 @@ form div {
   display: inline-block;
 }
 
-.items-list {
-  width: 20%;
-  height: 20%;
+.wands-list {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.wand-img {
+  width: 70%;
+  height: 70%;
+}
+
+.single-wand {
+  display: flex;
+  flex-direction: column;
+  width: 33%;
+  height: 50%;
+  align-items: center;
 }
