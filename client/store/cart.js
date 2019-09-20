@@ -17,7 +17,12 @@ const initialState = []
  * ACTION CREATORS
  */
 const getCart = items => ({type: GET_CART, items})
-const addToCart = item => ({type: ADD_TO_CART, item})
+const addToCart = (itemId, price, quantity) => ({
+  type: ADD_TO_CART,
+  itemId,
+  price,
+  quantity
+})
 const removeFromCart = itemId => ({type: REMOVE_FROM_CART, itemId})
 /**
  * THUNK CREATORS

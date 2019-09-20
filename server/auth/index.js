@@ -1,5 +1,6 @@
 const router = require('express').Router()
 const User = require('../db/models/user')
+const db = require('../db')
 module.exports = router
 
 router.post('/login', async (req, res, next) => {
@@ -13,6 +14,25 @@ router.post('/login', async (req, res, next) => {
       res.status(401).send('Wrong username and/or password')
     } else {
       req.login(user, err => (err ? next(err) : res.json(user)))
+      const order = await db.models.orders.findOne({
+        where: {
+          userId: user.id,
+          status: false
+        }
+      })
+
+      if (order) {
+        console.log('have an order', order)
+        req.session.orderId = order.id
+        // console.log('req.session', req.session)
+      } else {
+        console.log('need new order')
+        const newOrder = db.models.orders.create({
+          userId: user.id,
+          status: false
+        })
+        req.session.orderId = newOrder.id
+      }
     }
   } catch (err) {
     next(err)

@@ -14,7 +14,14 @@ router.get('/', async (req, res, next) => {
 router.post('/', async (req, res, next) => {
   try {
     console.log('req.body in post', req.body)
-    const createItemsInCart = await orderItems.create(req.body)
+    const createItemsInCart = await orderItems.create()
+    // const createItemsInCart = await orderItems.create({
+    //   itemId: req.body.id,
+    //   priceAtSale: req.body.price,
+    //   quantityAtSale: 2,
+    //   orderId: 3
+    // })
+    // orderItems.a
     res.json(createItemsInCart)
   } catch (error) {
     next(error)
