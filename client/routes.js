@@ -4,6 +4,7 @@ import {withRouter, Route, Switch} from 'react-router-dom'
 import PropTypes from 'prop-types'
 import {Login, Signup, UserHome} from './components'
 import Cart from './components/Cart'
+import Home from './components/Home'
 import AllItems from './components/AllItems'
 import {me} from './store'
 

@@ -2,12 +2,18 @@
   color: brown;
 }
 
-body {
+body,
+html {
   font-family: 'Didot', serif;
+  height: 100%;
 }
 
 a {
   text-decoration: none;
+}
+
+a:hover {
+  color: #4e6766;
 }
 
 label {
@@ -56,4 +62,11 @@ form div {
 
 button[type='button']:hover {
   background-color: #45a049;
+}
+
+.centered {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
