@@ -12,6 +12,10 @@ a {
   text-decoration: none;
 }
 
+a:hover {
+  color: #4e6766;
+}
+
 label {
   display: block;
 }
