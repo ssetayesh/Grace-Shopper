@@ -2,7 +2,6 @@ import React from 'react'
 import {Link} from 'react-router-dom'
 
 const SingleItem = props => {
-  console.log('props in single item', props)
   const item = props.item
   return (
     <div className="single-wand">

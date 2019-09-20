@@ -13,6 +13,7 @@ router.get('/', async (req, res, next) => {
 
 router.post('/', async (req, res, next) => {
   try {
+    console.log('req.body in post', req.body)
     const createItemsInCart = await orderItems.create(req.body)
     res.json(createItemsInCart)
   } catch (error) {

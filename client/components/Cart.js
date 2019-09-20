@@ -10,13 +10,15 @@ class Cart extends React.Component {
   componentDidMount() {
     if (!this.props.id) {
       // code should handle seeing guest's cart
+      console.log('guest cart')
+    } else {
+      this.props.gotCart(this.props.id)
     }
-    this.props.gotCart(this.props.id)
   }
 
   render() {
     const cart = this.props.cart[0]
-
+    // console.log('this.props in Cart render', this.props)
     return (
       <div>
         <center>
@@ -25,7 +27,7 @@ class Cart extends React.Component {
               {cart.items.map(item => (
                 <div key={item.id}>
                   <p>{item.name}</p>
-                  <img src={item.img} />
+                  <img src={item.img} className="wand-img" />
                 </div>
               ))}
             </div>
