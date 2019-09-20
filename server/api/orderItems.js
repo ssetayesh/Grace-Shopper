@@ -22,10 +22,12 @@ router.post('/', async (req, res, next) => {
 })
 
 //edit items in cart
-router.put('/:id', async (req, res, next) => {
+router.put('/:orderId/:itemId', async (req, res, next) => {
   try {
-    const find = await orderItems.findById(req.params.id)
-    const updateFound = find.update(req.body)
+    const find = await orderItems.findOne({
+      where: {orderId: req.params.orderId, itemId: req.params.itemId}
+    })
+    const updateFound = await find.update(req.body)
     res.json(updateFound)
   } catch (error) {
     next(error)
