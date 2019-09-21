@@ -12,7 +12,7 @@ class AllItems extends React.Component {
     }
 
     this.handleAddToCart = this.handleAddToCart.bind(this)
-    this.handleQuantity = this.handleQuantity.bind(this)
+    // this.handleQuantity = this.handleQuantity.bind(this)
   }
 
   componentDidMount() {
@@ -20,17 +20,17 @@ class AllItems extends React.Component {
     this.props.getItemsThunk()
   }
 
-  handleAddToCart(id) {
+  handleAddToCart(id, price) {
     // console.log('this.props in add', this)
-    this.props.addedToCart(id)
+    this.props.addedToCart(id, price)
   }
 
-  handleQuantity(event) {
-    console.log('event', event)
-    this.setState({
-      quantity: event.target.value
-    })
-  }
+  // handleQuantity(event) {
+  //   console.log('event', event)
+  //   this.setState({
+  //     quantity: event.target.value
+  //   })
+  // }
 
   render() {
     return (
@@ -63,7 +63,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => ({
   getItemsThunk: () => dispatch(getItemsThunk()),
-  addedToCart: id => dispatch(addedToCart(id))
+  addedToCart: (id, price) => dispatch(addedToCart(id, price))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(AllItems)

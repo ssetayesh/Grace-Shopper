@@ -18,11 +18,10 @@ const initialState = []
  * ACTION CREATORS
  */
 const getCart = items => ({type: GET_CART, items})
-const addToCart = (itemId, price, quantity) => ({
+const addToCart = (itemId, price) => ({
   type: ADD_TO_CART,
   itemId,
-  price,
-  quantity
+  price
 })
 const removeFromCart = itemId => ({type: REMOVE_FROM_CART, itemId})
 const changeQuantity = item => ({type: CHANGE_QUANTITY, item})
@@ -42,13 +41,16 @@ export const gotCart = userId => {
   }
 }
 
-export const addedToCart = itemId => {
+export const addedToCart = (itemId, price) => {
   return async dispatch => {
     try {
-      const res = await axios.get(`/api/items/${itemId}`)
-      console.log('res.data in addtocart', res.data)
-      await axios.post('/api/orderItems/', res.data)
-      dispatch(addToCart(res.data))
+      // const res = await axios.get(`/api/items/${itemId}`)
+      const orderToCart = {
+        itemId: itemId,
+        priceAtSale: price
+      }
+      const {data} = await axios.post('/api/orderItems/', orderToCart)
+      dispatch(addToCart(data.itemId, data.priceAtSale))
     } catch (error) {
       next(error)
     }
