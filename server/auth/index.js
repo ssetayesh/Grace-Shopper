@@ -24,7 +24,6 @@ router.post('/login', async (req, res, next) => {
       if (order) {
         console.log('have an order', order)
         req.session.orderId = order.id
-        // console.log('req.session', req.session)
       } else {
         console.log('need new order')
         const newOrder = db.models.orders.create({
