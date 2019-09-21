@@ -112,13 +112,11 @@ async function seed() {
     orderItems.create({
       orderId: 2,
       itemId: 1,
-      quanitityAtSale: 2,
       priceAtSale: 10
     }),
     orderItems.create({
       orderId: 1,
       itemId: 2,
-      quanitityAtSale: 2,
       priceAtSale: 10
     })
   ])
