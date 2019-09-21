@@ -7,8 +7,12 @@ import SingleItem from './SingleItem'
 class AllItems extends React.Component {
   constructor(props) {
     super(props)
+    this.state = {
+      quantity: 0
+    }
 
     this.handleAddToCart = this.handleAddToCart.bind(this)
+    this.handleQuantity = this.handleQuantity.bind(this)
   }
 
   componentDidMount() {
@@ -21,6 +25,13 @@ class AllItems extends React.Component {
     this.props.addedToCart(id)
   }
 
+  handleQuantity(event) {
+    console.log('event', event)
+    this.setState({
+      quantity: event.target.value
+    })
+  }
+
   render() {
     return (
       <div>
@@ -30,7 +41,9 @@ class AllItems extends React.Component {
               <SingleItem
                 key={item.id}
                 item={item}
+                quantity={this.state.quantity}
                 handleAddToCart={this.handleAddToCart}
+                handleQuantity={this.handleQuantity}
               />
             ))}
           </div>
