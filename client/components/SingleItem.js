@@ -18,17 +18,6 @@ const SingleItem = props => {
       >
         Add to Cart
       </button>
-      <form onSubmit={props.handleAddToCart}>
-        <label htmlFor="quantity">
-          Quantity
-          <input
-            type="text"
-            name="quantity"
-            value={props.quantity}
-            onChange={props.handleQuantity}
-          />
-        </label>
-      </form>
     </div>
   )
 }
