@@ -24,7 +24,6 @@ async function seed() {
         'Sweet and natural. It is used for self-protection. Its aspects are fruitfulness and virginity',
       img:
         'https://alivans.com/wp-content/uploads/2016/02/APPRENTICE_THUMB.jpg',
-      quantity: 10,
       price: 30.0
     }),
     Item.create({
@@ -32,7 +31,6 @@ async function seed() {
       description:
         "Sacred to Poseidon and Woden, and called the 'father of trees'. Guardian spirits reside inside it and help absorb sickness. It's also associated with water and sea power. Aspects include seapower, karmic laws, magical potency, healing, and protection from drowning.",
       img: 'https://alivans.com/wp-content/uploads/2016/02/ASH_THUMB-2.jpg',
-      quantity: 10,
       price: 31.0
     }),
     Item.create({
@@ -40,7 +38,6 @@ async function seed() {
       description:
         'Useful in divination, Bloodwood is said to reveal secrets of both the past and future and to aid its possessor in understanding the given knowledge. Well known for its brilliant red color it is also perfect for matters of the heart and healing.',
       img: 'https://alivans.com/wp-content/uploads/2017/09/BLOODWOOD_ZOOM.jpg',
-      quantity: 10,
       price: 35.0
     }),
     Item.create({
@@ -48,7 +45,6 @@ async function seed() {
       description:
         'Once used to make writing tablets for runes. Associated with spells of information, especially seeking old wisdom; invocation of ancient guardians or Ancestors; research into old writings and the runes; magic of the Summer Solstice, culmination of desires; magic of victory.',
       img: 'https://alivans.com/wp-content/uploads/2016/02/PROFESSOR_THUMB.jpg',
-      quantity: 10,
       price: 54.0
     }),
     Item.create({
@@ -57,7 +53,6 @@ async function seed() {
         'Associated with invocations and blessings of sacred fires, spells of finding, hunting, conflict, war, competition, passion, communion with animals, unification of groups or tribes, and the amplification of magical will.',
       img:
         'https://alivans.com/wp-content/uploads/2017/05/BLACKCHERRY_THUMB.jpg',
-      quantity: 10,
       price: 44.0
     }),
     Item.create({
@@ -65,7 +60,6 @@ async function seed() {
       description:
         "Means 'holy' and has several uses such as making dye and use as an aphrodisiac. Its aspects are holiness, consecration, material gain, physical revenge, and beauty.",
       img: 'https://alivans.com/wp-content/uploads/2016/02/HOLLY15_THUMB.jpg',
-      quantity: 10,
       price: 38.0
     }),
     Item.create({
@@ -74,7 +68,6 @@ async function seed() {
         'Mahogany is known to be excellent for transfiguration and makes a great tool for warding off the Dark Arts.',
       img:
         'https://alivans.com/wp-content/uploads/2016/02/TWISTEDMAHOGANY_ZOOM.jpg',
-      quantity: 10,
       price: 82.0
     }),
     Item.create({
@@ -82,7 +75,6 @@ async function seed() {
       description:
         'Thought to be durable and strong because it never changes its leaves. It is thought to help in rejuvenation, and its aspects are resurrection, and the cycle and matrix of life.',
       img: 'https://alivans.com/wp-content/uploads/2016/02/BLACKPALM_ZOOM.jpg(',
-      quantity: 10,
       price: 70.0
     }),
     Item.create({
@@ -90,7 +82,6 @@ async function seed() {
       description:
         'Associated with drawing down power from Heaven to Earth, spells of religious seeking and discipline, spells of mystical union with nature and wild animals, hunting magic, and the martial arts as spiritual discipline.',
       img: 'https://alivans.com/wp-content/uploads/2016/02/REDWOOD_THUMB.jpg',
-      quantity: 10,
       price: 65.0
     }),
     Item.create({
@@ -98,7 +89,6 @@ async function seed() {
       description:
         "Sacred to the dark aspects of the triple moon goddess (Hecate, Circe, Hera, and Persephone). Associated with water and giving dew and moisture, as well as the moon's female aspect. It is called the 'tree of enchantment', and its aspects are moon magic, psychic energy, healing, inspiration, and fertility.",
       img: 'https://alivans.com/wp-content/uploads/2016/02/WILLOW_THUMV.jpg',
-      quantity: 10,
       price: 50.0
     })
   ])

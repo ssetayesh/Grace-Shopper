@@ -2,6 +2,7 @@ import React from 'react'
 import {Link} from 'react-router-dom'
 
 const SingleItem = props => {
+  // console.log('props in SingleItem', props)
   const item = props.item
   return (
     <div className="single-wand">
@@ -12,7 +13,7 @@ const SingleItem = props => {
       <button
         type="button"
         onClick={() => {
-          props.handleAddToCart(item.id)
+          props.handleAddToCart(item.id, item.price)
         }}
       >
         Add to Cart
