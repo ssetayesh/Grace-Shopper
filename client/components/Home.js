@@ -18,7 +18,7 @@ class Home extends React.Component {
         />
         <div className="centered">
           <center>
-            <h1>Wanderes</h1>
+            <h1>Wanderers</h1>
             <h2>The first store for wands</h2>
           </center>
         </div>
