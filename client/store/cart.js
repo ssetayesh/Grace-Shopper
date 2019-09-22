@@ -6,8 +6,10 @@ import history from '../history'
  */
 const GET_CART = 'GET_CART'
 const ADD_TO_CART = 'ADD_TO_CART'
+const TOTAL_PRICE_IN_CART = 'TOTAL_PRICE_IN_CART'
 const REMOVE_FROM_CART = 'REMOVE_FROM_CART'
 const CHANGE_QUANTITY = 'CHANGE_QUANTITY'
+const CLEAR_CART = 'CLEAR_CART'
 
 /**
  * INITIAL STATE
@@ -17,14 +19,32 @@ const initialState = []
 /**
  * ACTION CREATORS
  */
-const getCart = items => ({type: GET_CART, items})
+const getCart = items => ({
+  type: GET_CART,
+  items
+})
+
 const addToCart = (itemId, price) => ({
   type: ADD_TO_CART,
   itemId,
   price
 })
-const removeFromCart = itemId => ({type: REMOVE_FROM_CART, itemId})
-const changeQuantity = item => ({type: CHANGE_QUANTITY, item})
+
+const removeFromCart = itemId => ({
+  type: REMOVE_FROM_CART,
+  itemId
+})
+
+const changeQuantity = item => ({
+  type: CHANGE_QUANTITY,
+  item
+})
+
+const addToTotal = price => ({
+  type: TOTAL_PRICE_IN_CART,
+  price
+})
+
 /**
  * THUNK CREATORS
  */
@@ -44,7 +64,6 @@ export const gotCart = userId => {
 export const addedToCart = (itemId, price) => {
   return async dispatch => {
     try {
-      // const res = await axios.get(`/api/items/${itemId}`)
       const orderToCart = {
         itemId: itemId,
         priceAtSale: price
@@ -82,6 +101,8 @@ export const changedQuantity = (item, newQuantity) => {
   }
 }
 
+// export const totalPrice = (pr)
+
 /**
  * REDUCER
  */
@@ -98,6 +119,8 @@ export default function(state = initialState, action) {
         if (item.id !== action.item.id) return item
         else return action.item
       })
+    case CLEAR_CART:
+      return []
     default:
       return state
   }

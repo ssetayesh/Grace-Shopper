@@ -38,6 +38,10 @@ form div {
   display: inline-block;
 }
 
+.cart-wand-img {
+  width: 10%;
+}
+
 .wands-list {
   display: flex;
   flex-direction: row;

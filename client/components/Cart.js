@@ -5,6 +5,9 @@ import {gotCart} from '../store/cart'
 class Cart extends React.Component {
   constructor(props) {
     super(props)
+    this.state = {
+      totalPrice: 0.0
+    }
   }
 
   componentDidMount() {
@@ -18,23 +21,28 @@ class Cart extends React.Component {
 
   render() {
     const cart = this.props.cart[0]
-    // console.log('this.props in Cart render', this.props)
+    // console.log('this.props.cart in Cart render', this.props)
     return (
       <div>
         <center>
-          {cart ? (
-            <div className="items-list">
-              {cart.items.map(item => (
-                <div key={item.id}>
-                  <p>{item.name}</p>
-                  <img src={item.img} className="wand-img" />
-                </div>
-              ))}
-            </div>
-          ) : (
-            <div>Cart Empty</div>
-          )}
+          <h2>Cart</h2>
         </center>
+        {cart ? (
+          <div className="items-list">
+            {cart.items.map(item => (
+              <div key={item.id}>
+                <p>
+                  {item.name} - ${item.price}
+                </p>
+                <img src={item.img} className="cart-wand-img" />
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div>Cart Empty</div>
+        )}
+        <hr />
+        <p>TOTAL PRICE: {this.state.totalPrice}</p>
       </div>
     )
   }
