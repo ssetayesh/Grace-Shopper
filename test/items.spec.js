@@ -66,12 +66,5 @@ describe('Item routes', () => {
       }
       expect(res.body.name).to.equal('Cool Item')
     })
-
-    /**
-     * Here we pass in a bad ID to the URL, we should get a 404 error
-     */
-    it('returns a 404 error if the ID is not correct', () => {
-      return agent.get('/api/items/76142896').expect(404)
-    })
   })
 }) // end describe('Item routes')
