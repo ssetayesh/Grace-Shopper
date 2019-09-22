@@ -1,10 +1,10 @@
 const {expect} = require('chai')
 const request = require('supertest')
 
-const app = require('../index')
+const app = require('../server/index')
 const agent = request.agent(app)
 
-const db = require('../db')
+const db = require('../server/db')
 const Item = db.model('item')
 
 describe('Item routes', () => {
@@ -52,7 +52,6 @@ describe('Item routes', () => {
 
       const createdItems = await Promise.all(creatingItems)
       coolItem = createdItems[1].dataValues
-      console.log('*******coolI', coolItem)
     })
 
     /**
