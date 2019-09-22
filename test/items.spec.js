@@ -12,7 +12,7 @@ describe('Item routes', () => {
     return db.sync({force: true})
   })
 
-  xdescribe('/api/items/', () => {
+  describe('/api/items/', () => {
     const dresserItem = 'dresser'
 
     beforeEach(() => {
@@ -31,7 +31,7 @@ describe('Item routes', () => {
     })
   }) // end describe('/api/items')
 
-  xdescribe('GET /items/:id', () => {
+  describe('GET /items/:id', () => {
     let coolItem
 
     beforeEach(async () => {
