@@ -32,6 +32,11 @@ class Cart extends React.Component {
     return sum
   }
 
+  async removedFromCart(item) {
+    await this.props.removedFromCart(item)
+    await this.props.gotCart(this.props.id)
+  }
+
   render() {
     const cart = this.props.cart[0]
     return (
@@ -48,7 +53,12 @@ class Cart extends React.Component {
                 </p>
                 <img src={item.img} className="cart-wand-img" />
                 <br />
-                <button>Delete {item.name}</button>
+                <button
+                  value="remove"
+                  onClick={() => this.removedFromCart(item.id)}
+                >
+                  Remove From Cart
+                </button>
               </div>
             ))}
           </div>
@@ -70,7 +80,8 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  gotCart: userId => dispatch(gotCart(userId))
+  gotCart: userId => dispatch(gotCart(userId)),
+  removedFromCart: itemId => dispatch(removedFromCart(itemId))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Cart)
