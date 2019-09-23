@@ -35,12 +35,36 @@ router.post('/', async (req, res, next) => {
   }
 })
 
-// router.delete('/:id', async (req, res, next) => {
-//   try {
-//     const find = await orderItems.findById(req.params.id)
-//     const del = await orderItems.destroy(find)
-//     res.json(del)
-//   } catch (error) {
-//     next(error)
-//   }
-// })
+//edit items in cart
+router.put('/:itemId/:orderId', async (req, res, next) => {
+  try {
+    const updateInfo = {
+      quantityAtSale: req.body.quantityAtSale,
+      priceAtSale: req.body.priceAtSale
+    }
+
+    const updatedItem = await orderItems.update(updateInfo, {
+      where: {
+        itemId: req.params.itemId
+      }
+    })
+
+    res.json(updatedItem)
+  } catch (error) {
+    next(error)
+  }
+})
+
+router.delete('/:itemId', async (req, res, next) => {
+  try {
+    const deletedItem = await orderItems.destroy({
+      where: {
+        itemId: req.params.itemId
+      }
+    })
+
+    res.json(deletedItem)
+  } catch (error) {
+    next(error)
+  }
+})
