@@ -33,6 +33,7 @@ class Cart extends React.Component {
   }
 
   render() {
+    const cart = this.props.cart[0]
     return (
       <div>
         <center>
@@ -46,6 +47,8 @@ class Cart extends React.Component {
                   {item.name} - ${item.price}
                 </p>
                 <img src={item.img} className="cart-wand-img" />
+                <br />
+                <button>Delete {item.name}</button>
               </div>
             ))}
           </div>
@@ -55,6 +58,7 @@ class Cart extends React.Component {
         <hr />
         <p>TOTAL PRICE: ${this.totalPrice()}</p>
         <button>Checkout</button>
+        <br />
       </div>
     )
   }
