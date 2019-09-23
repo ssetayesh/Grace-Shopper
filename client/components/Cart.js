@@ -25,7 +25,7 @@ class Cart extends React.Component {
     let sum = 0.0
 
     if (this.props.cart.length > 0) {
-      this.props.cart[0].items.forEach(element => {
+      cart.items.forEach(element => {
         sum = sum + Number(element.price)
       })
     }
