@@ -102,17 +102,20 @@ export const removedFromCart = itemId => {
 //   }
 // }
 
-export const changedQuantity = (item, newQuantity) => {
+export const changedQuantity = (itemId, orderId, price, newQuantity) => {
   return async dispatch => {
     try {
-      const newPrice = item.price * newQuantity
-      const {res} = await axios.put(`/api/orderItems/${item.id}`, {
-        quantityAtSale: newQuantity,
-        priceAtSale: newPrice
-      })
-      dispatch(changeQuantity(res))
+      const updatedItem = {
+        itemId: itemId,
+        orderId: orderId,
+        priceAtSale: price,
+        quantityAtSale: newQuantity
+      }
+      const res = await axios.put(`/api/orderItems/`, updatedItem)
+
+      dispatch(changeQuantity(updatedItem))
     } catch (error) {
-      next(error)
+      console.error(error)
     }
   }
 }

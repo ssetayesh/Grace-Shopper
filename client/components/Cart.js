@@ -40,10 +40,10 @@ class Cart extends React.Component {
     await this.props.gotCart(this.props.id)
   }
 
-  async changedQuantity(itemId, price, newQuantity) {
+  async changedQuantity(itemId, orderId, price, newQuantity) {
     try {
       const newPrice = price * newQuantity
-      await this.props.changedQuantity(itemId, newPrice, newQuantity)
+      await this.props.changedQuantity(itemId, orderId, newPrice, newQuantity)
       await this.props.gotCart(itemId)
     } catch (err) {
       console.error(err)
@@ -79,8 +79,9 @@ class Cart extends React.Component {
                 <br />
                 <select
                   onChange={event =>
-                    this.props.changedQuantity(
+                    this.changedQuantity(
                       item.id,
+                      this.props.id,
                       item.price,
                       event.target.value
                     )

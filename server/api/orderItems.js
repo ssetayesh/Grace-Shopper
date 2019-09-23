@@ -36,7 +36,7 @@ router.post('/', async (req, res, next) => {
 })
 
 //edit items in cart
-router.put('/:itemId/:orderId', async (req, res, next) => {
+router.put('/', async (req, res, next) => {
   try {
     const updateInfo = {
       quantityAtSale: req.body.quantityAtSale,
@@ -45,7 +45,8 @@ router.put('/:itemId/:orderId', async (req, res, next) => {
 
     const updatedItem = await orderItems.update(updateInfo, {
       where: {
-        itemId: req.params.itemId
+        itemId: req.body.itemId,
+        orderId: req.body.orderId
       }
     })
 
@@ -55,7 +56,7 @@ router.put('/:itemId/:orderId', async (req, res, next) => {
   }
 })
 
-router.delete('/:itemId', async (req, res, next) => {
+router.delete('/', async (req, res, next) => {
   try {
     const deletedItem = await orderItems.destroy({
       where: {
