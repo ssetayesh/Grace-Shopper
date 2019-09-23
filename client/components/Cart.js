@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {gotCart} from '../store/cart'
+import {gotCart, removedFromCart} from '../store/cart'
 import {throws} from 'assert'
 
 class Cart extends React.Component {
@@ -34,6 +34,11 @@ class Cart extends React.Component {
     return sum
   }
 
+  async removedFromCart(item) {
+    await this.props.removedFromCart(item)
+    await this.props.gotCart(this.props.id)
+  }
+
   render() {
     console.log('this.props', this.props.cart)
     const cart = this.props.cart
@@ -52,7 +57,12 @@ class Cart extends React.Component {
                 </p>
                 <img src={item.img} className="cart-wand-img" />
                 <br />
-                <button>Delete {item.name}</button>
+                <button
+                  value="remove"
+                  onClick={() => this.removedFromCart(item.id)}
+                >
+                  Remove From Cart
+                </button>
               </div>
             ))}
           </div>
@@ -74,7 +84,8 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  gotCart: userId => dispatch(gotCart(userId))
+  gotCart: userId => dispatch(gotCart(userId)),
+  removedFromCart: itemId => dispatch(removedFromCart(itemId))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Cart)

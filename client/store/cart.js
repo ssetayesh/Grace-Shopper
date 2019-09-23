@@ -94,6 +94,7 @@ export const addedToCart = (itemId, price) => {
 export const removedFromCart = itemId => {
   return async dispatch => {
     try {
+      await axios.delete(`/api/orderItems/${itemId}`)
       dispatch(removeFromCart(itemId))
     } catch (error) {
       console.log('Error!', error)
@@ -141,7 +142,7 @@ export default function(state = initialState, action) {
       console.log('state', state)
       return [...state, action.item]
     case REMOVE_FROM_CART:
-      return [...state].map(item => item.id !== action.itemId)
+      return [...state].filter(item => item.id !== action.itemId)
     // case CHANGE_QUANTITY:
     //   return state.map(item => {
     //     if (item.id !== action.item.id) return item
