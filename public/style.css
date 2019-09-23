@@ -1,9 +1,19 @@
-body {
-  font-family: sans-serif;
+* {
+  color: brown;
+}
+
+body,
+html {
+  font-family: 'Didot', serif;
+  height: 100%;
 }
 
 a {
   text-decoration: none;
+}
+
+a:hover {
+  color: #4e6766;
 }
 
 label {
@@ -15,12 +25,52 @@ nav a {
   margin: 1em;
 }
 
+h1 {
+  text-align: center;
+}
+
+h4 {
+  text-align: center;
+}
+
 form div {
   margin: 1em;
   display: inline-block;
 }
 
-.items-list {
-  width: 20%;
-  height: 20%;
+.cart-wand-img {
+  width: 10%;
+}
+
+.wands-list {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  background-color: #f4e1d2;
+}
+
+.wand-img {
+  max-width: 50%;
+  align-self: auto;
+  max-height: 30%;
+  border-radius: 10px 10px 10px 10px;
+}
+
+.single-wand {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  height: 50%;
+  align-items: center;
+}
+
+button[type='button']:hover {
+  background-color: #45a049;
+}
+
+.centered {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }

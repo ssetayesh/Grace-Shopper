@@ -6,25 +6,26 @@ import {Link} from 'react-router-dom'
 import {logout} from '../store'
 
 const Navbar = ({handleClick, isLoggedIn}) => (
-  <div>
-    <h1>EPIC APP</h1>
+  <div className="navBar">
     <nav>
       {isLoggedIn ? (
         <div>
           {/* The navbar will show these links after you log in */}
           <Link to="/home">Home</Link>
-          <Link to="/cart">Cart</Link>
           <a href="#" onClick={handleClick}>
             Logout
           </a>
+          <Link to="/items">Our Wands</Link>
+          <Link to="/cart">Cart</Link>
         </div>
       ) : (
         <div>
           {/* The navbar will show these links before you log in */}
+          <Link to="/">Home</Link>
           <Link to="/login">Login</Link>
           <Link to="/signup">Sign Up</Link>
-          <Link to="/items">Items</Link>
-          <Link to="/cart">Cart</Link>
+          <Link to="/items">Our Wands</Link>
+          <Link to="/guest/cart">Cart</Link>
         </div>
       )}
     </nav>
@@ -46,6 +47,7 @@ const mapDispatch = dispatch => {
     handleClick() {
       dispatch(logout())
     }
+    // clearCart: () => dispatch()
   }
 }
 
