@@ -8,7 +8,7 @@ const GET_CART = 'GET_CART'
 const ADD_TO_CART = 'ADD_TO_CART'
 const TOTAL_PRICE_IN_CART = 'TOTAL_PRICE_IN_CART'
 const REMOVE_FROM_CART = 'REMOVE_FROM_CART'
-// const CHANGE_QUANTITY = 'CHANGE_QUANTITY'
+const CHANGE_QUANTITY = 'CHANGE_QUANTITY'
 const CLEAR_CART = 'CLEAR_CART'
 const CHECKOUT = 'CHECKOUT'
 
@@ -36,10 +36,10 @@ const removeFromCart = itemId => ({
   itemId
 })
 
-// const changeQuantity = item => ({
-//   type: CHANGE_QUANTITY,
-//   item
-// })
+const changeQuantity = item => ({
+  type: CHANGE_QUANTITY,
+  item
+})
 
 // const totalPrice = totalPrice => ({
 //   type: TOTAL_PRICE_IN_CART,
@@ -76,7 +76,7 @@ export const addedToCart = (itemId, price) => {
       const {data} = await axios.post('/api/orderItems/', orderToCart)
       dispatch(addToCart(data.itemId, data.priceAtSale))
     } catch (error) {
-      next(error)
+      console.log(error)
     }
   }
 }
@@ -103,20 +103,22 @@ export const removedFromCart = itemId => {
 //   }
 // }
 
-// export const changedQuantity = (item, newQuantity) => {
-//   return async dispatch => {
-//     try {
-//       const newPrice = item.price * newQuantity
-//       const {res} = await axios.put(`/api/orderItems/${item.id}`, {
-//         quantityAtSale: newQuantity,
-//         priceAtSale: newPrice
-//       })
-//       dispatch(changeQuantity(res))
-//     } catch (error) {
-//       next(error)
-//     }
-//   }
-// }
+export const changedQuantity = (itemId, price, newQuantity) => {
+  return async dispatch => {
+    try {
+      const updatedItem = {
+        id: itemId,
+        priceAtSale: price,
+        quantityAtSale: newQuantity
+      }
+      const res = await axios.put(`/api/orderItems/${itemId}`, updatedItem)
+
+      dispatch(changeQuantity(updatedItem))
+    } catch (error) {
+      console.error(error)
+    }
+  }
+}
 
 // export const totalPrice = (pr)
 
@@ -131,11 +133,13 @@ export default function(state = initialState, action) {
       return [...state, action.item]
     case REMOVE_FROM_CART:
       return [...state].filter(item => item.id !== action.itemId)
-    // case CHANGE_QUANTITY:
-    //   return state.map(item => {
-    //     if (item.id !== action.item.id) return item
-    //     else return action.item
-    //   })
+    case CHANGE_QUANTITY:
+      return [...state].map(item => {
+        if (item.id === action.item.id) {
+          item.quantityAtSale = action.item.quantityAtSale
+          return item
+        }
+      })
     case CLEAR_CART:
       return initialState
     default:

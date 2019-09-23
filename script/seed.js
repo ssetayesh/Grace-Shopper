@@ -95,14 +95,14 @@ async function seed() {
 
   const orders = await Promise.all([
     Orders.create({
-      // totalQuantity: 6,
-      // totalPrice: 60,
+      totalQuantity: 6,
+      totalPrice: 60,
       status: false,
       userId: 2
     }),
     Orders.create({
-      // totalQuantity: 2,
-      // totalPrice: 49,
+      totalQuantity: 2,
+      totalPrice: 49,
       status: true,
       userId: 1
     })

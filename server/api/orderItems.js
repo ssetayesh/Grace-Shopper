@@ -15,7 +15,7 @@ router.post('/', async (req, res, next) => {
   try {
     const userId = req.session.passport.user
 
-    const order = await db.models.orders.findOne({
+    const order = await orderItems.findOne({
       where: {
         userId: userId,
         status: false
@@ -35,11 +35,20 @@ router.post('/', async (req, res, next) => {
 })
 
 //edit items in cart
-router.put('/:id', async (req, res, next) => {
+router.put('/:itemId', async (req, res, next) => {
   try {
-    const find = await orderItems.findById(req.params.id)
-    const updateFound = find.update(req.body)
-    res.json(updateFound)
+    const updateInfo = {
+      quantityAtSale: req.body.quantityAtSale,
+      priceAtSale: req.body.priceAtSale
+    }
+
+    const updatedItem = await orderItems.update(req.body, {
+      where: {
+        itemId: req.params.itemId
+      }
+    })
+
+    res.json(updatedItem)
   } catch (error) {
     next(error)
   }
