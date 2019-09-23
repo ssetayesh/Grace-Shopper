@@ -35,19 +35,6 @@ router.post('/', async (req, res, next) => {
   }
 })
 
-//edit items in cart
-router.put('/:orderId/:itemId', async (req, res, next) => {
-  try {
-    const find = await orderItems.findOne({
-      where: {orderId: req.params.orderId, itemId: req.params.itemId}
-    })
-    const updateFound = await find.update(req.body)
-    res.json(updateFound)
-  } catch (error) {
-    next(error)
-  }
-})
-
 // router.delete('/:id', async (req, res, next) => {
 //   try {
 //     const find = await orderItems.findById(req.params.id)
