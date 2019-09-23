@@ -43,6 +43,23 @@ router.get('/user/:userId/cart', async (req, res, next) => {
   }
 })
 
+router.put('/user/:userId/cart', async (req, res, next) => {
+  try {
+    const cart = await Orders.findAll({
+      where: {
+        userId: req.params.userId,
+        status: false
+      },
+      include: [{model: Item}]
+    })
+    console.log('cart in put', cart)
+    if (!cart) res.status(404).send('Cart not found')
+    res.json(cart)
+  } catch (error) {
+    next(error)
+  }
+})
+
 // router.get('/user/:userId', async (req, res, next) => {
 //   try {
 //     const allOrders = await Orders.findAll({

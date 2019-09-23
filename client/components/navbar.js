@@ -47,6 +47,7 @@ const mapDispatch = dispatch => {
     handleClick() {
       dispatch(logout())
     }
+    // clearCart: () => dispatch()
   }
 }
 

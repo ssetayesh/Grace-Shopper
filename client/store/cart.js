@@ -86,6 +86,16 @@ export const removedFromCart = itemId => {
   }
 }
 
+export const updateTotal = (userId, itemPrice) => {
+  return async dispatch => {
+    try {
+      const {data} = await axios.put(`/api/user/${userId}/cart`, itemPrice)
+    } catch (error) {
+      next(error)
+    }
+  }
+}
+
 export const changedQuantity = (item, newQuantity) => {
   return async dispatch => {
     try {
