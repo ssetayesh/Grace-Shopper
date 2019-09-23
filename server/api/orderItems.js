@@ -14,8 +14,6 @@ router.get('/', async (req, res, next) => {
 
 router.post('/', async (req, res, next) => {
   try {
-    console.log('req.body in post', req.body)
-    console.log('req.session', req.session)
     const userId = req.session.passport.user
 
     const order = await db.models.orders.findOne({

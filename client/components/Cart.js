@@ -1,6 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {gotCart} from '../store/cart'
+import {throws} from 'assert'
 
 class Cart extends React.Component {
   constructor(props) {
@@ -16,12 +17,21 @@ class Cart extends React.Component {
       console.log('guest cart')
     } else {
       this.props.gotCart(this.props.id)
+      console.log('This.props.cart in CDM', this.props.cart)
     }
   }
 
   render() {
     const cart = this.props.cart[0]
-    // console.log('this.props.cart in Cart render', this.props)
+    console.log('this.props.cart in Cart render', this.props.cart)
+    let sum = 0.0
+    if (this.props.cart.length > 0) {
+      this.props.cart[0].items.forEach(element => {
+        sum = sum + Number(element.price)
+      })
+      console.log('sum', sum)
+    }
+
     return (
       <div>
         <center>
@@ -42,7 +52,7 @@ class Cart extends React.Component {
           <div>Cart Empty</div>
         )}
         <hr />
-        <p>TOTAL PRICE: {this.state.totalPrice}</p>
+        <p>TOTAL PRICE: ${sum}</p>
       </div>
     )
   }

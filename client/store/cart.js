@@ -40,9 +40,9 @@ const changeQuantity = item => ({
   item
 })
 
-const addToTotal = price => ({
+const totalPrice = totalPrice => ({
   type: TOTAL_PRICE_IN_CART,
-  price
+  totalPrice
 })
 
 /**
@@ -86,15 +86,16 @@ export const removedFromCart = itemId => {
   }
 }
 
-export const updateTotal = (userId, itemPrice) => {
-  return async dispatch => {
-    try {
-      const {data} = await axios.put(`/api/user/${userId}/cart`, itemPrice)
-    } catch (error) {
-      next(error)
-    }
-  }
-}
+// export const updateTotal = (newTotal) => {
+//   return async dispatch => {
+//     try {
+//       // const {data} = await axios.get(`/api/orders/user/${userId}/cart`);
+//       // const
+//      } catch (error) {
+//       console.log('Error: ', error)
+//     }
+//   }
+// }
 
 export const changedQuantity = (item, newQuantity) => {
   return async dispatch => {
