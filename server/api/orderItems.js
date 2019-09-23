@@ -6,6 +6,7 @@ module.exports = router
 router.get('/', async (req, res, next) => {
   try {
     //route for guest's items in cart (not checked out)
+    console.log('session in get', req.session)
     const wandsInCart = req.session.wands
     console.log('req.session.wands in api', wandsInCart)
     res.json(wandsInCart)
@@ -16,6 +17,7 @@ router.get('/', async (req, res, next) => {
 
 router.post('/', async (req, res, next) => {
   try {
+    console.log('hello in post')
     if (!req.user) {
       //store the information on the session
       const wandImg = await db.models.item.findOne({
@@ -46,7 +48,13 @@ router.post('/', async (req, res, next) => {
         orderId: +req.session.orderId
       })
 
-      res.json(createItemsInCart)
+      const wandToAdd = await db.models.item.findOne({
+        where: {
+          id: req.body.itemId
+        }
+      })
+      res.json(wandToAdd)
+      // res.json(createItemsInCart)
     }
   } catch (error) {
     next(error)

@@ -9,16 +9,11 @@ class Cart extends React.Component {
     // this.state = {
     //   totalPrice: 0.0
     // }
+    this.removedFromCart = this.removedFromCart.bind(this)
   }
 
   componentDidMount() {
-    if (!this.props.id) {
-      // code should handle seeing guest's cart
-      console.log('guest cart')
-      this.props.gotCart(this.props.id)
-    } else {
-      this.props.gotCart(this.props.id)
-    }
+    this.props.gotCart(this.props.id)
   }
 
   totalPrice() {
@@ -35,12 +30,12 @@ class Cart extends React.Component {
   }
 
   async removedFromCart(item) {
-    await this.props.removedFromCart(item)
-    await this.props.gotCart(this.props.id)
+    this.props.removedFromCart(item)
+    //this.props.gotCart(this.props.id)
   }
 
   render() {
-    console.log('this.props', this.props.cart)
+    console.log('this.props', this.props)
     const cart = this.props.cart
 
     return (
@@ -50,8 +45,8 @@ class Cart extends React.Component {
         </center>
         {cart ? (
           <div className="items-list">
-            {cart.map(item => (
-              <div key={item.id}>
+            {cart.map((item, id) => (
+              <div key={id}>
                 <p>
                   {item.name} - ${item.price}
                 </p>

@@ -26,10 +26,11 @@ const getCart = items => ({
   items
 })
 
-const addToCart = (itemId, price) => ({
+const addToCart = (itemId, price, item) => ({
   type: ADD_TO_CART,
   itemId,
-  price
+  price,
+  item
 })
 
 const removeFromCart = itemId => ({
@@ -78,13 +79,13 @@ export const gotCart = userId => {
 export const addedToCart = (itemId, price) => {
   return async dispatch => {
     try {
-      console.log('jere')
       const orderToCart = {
         itemId: itemId,
         priceAtSale: price
       }
       const {data} = await axios.post('/api/orderItems/', orderToCart)
-      dispatch(addToCart(data.itemId, data.priceAtSale))
+      console.log('jere', data)
+      dispatch(addToCart(itemId, price, data))
     } catch (error) {
       console.log('Error!', error)
     }
@@ -136,10 +137,13 @@ export const changedQuantity = (item, newQuantity) => {
 export default function(state = initialState, action) {
   switch (action.type) {
     case GET_CART:
-      console.log('state', state)
+      console.log('state in get action', state)
       return action.items
     case ADD_TO_CART:
-      console.log('state', state)
+      console.log('action.item in add_to_cart', action.item)
+      // const wand = {
+
+      // }
       return [...state, action.item]
     case REMOVE_FROM_CART:
       return [...state].filter(item => item.id !== action.itemId)

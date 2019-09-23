@@ -20,6 +20,7 @@ class AllItems extends React.Component {
   }
 
   handleAddToCart(id, price) {
+    console.log('adding to cart')
     this.props.addedToCart(id, price)
   }
 
