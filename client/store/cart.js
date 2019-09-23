@@ -1,5 +1,6 @@
 import axios from 'axios'
 import history from '../history'
+import {session} from 'redux-react-session'
 
 /**
  * ACTION TYPES
@@ -57,11 +58,19 @@ const checkout = orderId => ({
 export const gotCart = userId => {
   return async dispatch => {
     try {
-      const res = await axios.get(`/api/orders/user/${userId}/cart`)
-      console.log('got cart data', res.data)
-      dispatch(getCart(res.data))
+      if (userId) {
+        console.log('hello!')
+        const res = await axios.get(`/api/orders/user/${userId}/cart`)
+        console.log('res.data if user has id', res.data[0].items)
+        dispatch(getCart(res.data[0].items))
+      } else {
+        console.log(' not hello!')
+        const res = await axios.get('/api/orderItems/')
+        console.log('res for guest in thunk', res)
+        dispatch(getCart(res.data))
+      }
     } catch (error) {
-      next(err)
+      console.log('Error!', error)
     }
   }
 }
@@ -69,6 +78,7 @@ export const gotCart = userId => {
 export const addedToCart = (itemId, price) => {
   return async dispatch => {
     try {
+      console.log('jere')
       const orderToCart = {
         itemId: itemId,
         priceAtSale: price
@@ -76,7 +86,7 @@ export const addedToCart = (itemId, price) => {
       const {data} = await axios.post('/api/orderItems/', orderToCart)
       dispatch(addToCart(data.itemId, data.priceAtSale))
     } catch (error) {
-      next(error)
+      console.log('Error!', error)
     }
   }
 }
@@ -86,7 +96,7 @@ export const removedFromCart = itemId => {
     try {
       dispatch(removeFromCart(itemId))
     } catch (error) {
-      next(error)
+      console.log('Error!', error)
     }
   }
 }
@@ -125,8 +135,10 @@ export const changedQuantity = (item, newQuantity) => {
 export default function(state = initialState, action) {
   switch (action.type) {
     case GET_CART:
+      console.log('state', state)
       return action.items
     case ADD_TO_CART:
+      console.log('state', state)
       return [...state, action.item]
     case REMOVE_FROM_CART:
       return [...state].map(item => item.id !== action.itemId)

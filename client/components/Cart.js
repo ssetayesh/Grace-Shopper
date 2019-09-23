@@ -15,17 +15,19 @@ class Cart extends React.Component {
     if (!this.props.id) {
       // code should handle seeing guest's cart
       console.log('guest cart')
+      this.props.gotCart(this.props.id)
     } else {
       this.props.gotCart(this.props.id)
     }
   }
 
   totalPrice() {
-    const cart = this.props.cart[0]
+    console.log('this.props in helper')
+    const cart = this.props.cart
     let sum = 0.0
 
-    if (this.props.cart.length > 0) {
-      cart.items.forEach(element => {
+    if (cart.length > 0) {
+      cart.forEach(element => {
         sum = sum + Number(element.price)
       })
     }
@@ -33,7 +35,9 @@ class Cart extends React.Component {
   }
 
   render() {
-    const cart = this.props.cart[0]
+    console.log('this.props', this.props.cart)
+    const cart = this.props.cart
+
     return (
       <div>
         <center>
@@ -41,7 +45,7 @@ class Cart extends React.Component {
         </center>
         {cart ? (
           <div className="items-list">
-            {cart.items.map(item => (
+            {cart.map(item => (
               <div key={item.id}>
                 <p>
                   {item.name} - ${item.price}
