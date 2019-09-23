@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {gotCart} from '../store/cart'
+import {gotCart, removedFromCart} from '../store/cart'
 import {throws} from 'assert'
 
 class Cart extends React.Component {
