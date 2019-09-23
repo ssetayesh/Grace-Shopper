@@ -20,16 +20,19 @@ class Cart extends React.Component {
     }
   }
 
-  render() {
+  totalPrice() {
     const cart = this.props.cart[0]
-
     let sum = 0.0
+
     if (this.props.cart.length > 0) {
       this.props.cart[0].items.forEach(element => {
         sum = sum + Number(element.price)
       })
     }
+    return sum
+  }
 
+  render() {
     return (
       <div>
         <center>
@@ -50,7 +53,7 @@ class Cart extends React.Component {
           <div>Cart Empty</div>
         )}
         <hr />
-        <p>TOTAL PRICE: ${sum}</p>
+        <p>TOTAL PRICE: ${this.totalPrice()}</p>
         <button>Checkout</button>
       </div>
     )
