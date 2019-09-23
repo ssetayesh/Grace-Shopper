@@ -20,10 +20,8 @@ const getItems = items => {
  * THUNK CREATORS
  */
 export const getItemsThunk = () => async dispatch => {
-  console.log('flag 1')
   try {
     const res = await axios.get('/api/items')
-    console.log('res.data', res.data)
     dispatch(getItems(res.data))
   } catch (err) {
     console.error(err)

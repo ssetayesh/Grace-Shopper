@@ -1,5 +1,6 @@
 import axios from 'axios'
 import history from '../history'
+import {session} from 'redux-react-session'
 
 /**
  * ACTION TYPES
@@ -25,10 +26,11 @@ const getCart = items => ({
   items
 })
 
-const addToCart = (itemId, price) => ({
+const addToCart = (itemId, price, item) => ({
   type: ADD_TO_CART,
   itemId,
-  price
+  price,
+  item
 })
 
 const removeFromCart = itemId => ({
@@ -57,11 +59,19 @@ const checkout = orderId => ({
 export const gotCart = userId => {
   return async dispatch => {
     try {
-      const res = await axios.get(`/api/orders/user/${userId}/cart`)
-      console.log('got cart data', res.data)
-      dispatch(getCart(res.data))
+      if (userId) {
+        console.log('hello!')
+        const res = await axios.get(`/api/orders/user/${userId}/cart`)
+        console.log('res.data if user has id', res.data[0].items)
+        dispatch(getCart(res.data[0].items))
+      } else {
+        console.log(' not hello!')
+        const res = await axios.get('/api/orderItems/')
+        console.log('res for guest in thunk', res)
+        dispatch(getCart(res.data))
+      }
     } catch (error) {
-      next(err)
+      console.log('Error!', error)
     }
   }
 }
@@ -74,9 +84,10 @@ export const addedToCart = (itemId, price) => {
         priceAtSale: price
       }
       const {data} = await axios.post('/api/orderItems/', orderToCart)
-      dispatch(addToCart(data.itemId, data.priceAtSale))
+      console.log('jere', data)
+      dispatch(addToCart(itemId, price, data))
     } catch (error) {
-      next(error)
+      console.log('Error!', error)
     }
   }
 }
@@ -84,9 +95,10 @@ export const addedToCart = (itemId, price) => {
 export const removedFromCart = itemId => {
   return async dispatch => {
     try {
+      await axios.delete(`/api/orderItems/${itemId}`)
       dispatch(removeFromCart(itemId))
     } catch (error) {
-      next(error)
+      console.log('Error!', error)
     }
   }
 }
@@ -125,11 +137,16 @@ export const changedQuantity = (item, newQuantity) => {
 export default function(state = initialState, action) {
   switch (action.type) {
     case GET_CART:
+      console.log('state in get action', state)
       return action.items
     case ADD_TO_CART:
+      console.log('action.item in add_to_cart', action.item)
+      // const wand = {
+
+      // }
       return [...state, action.item]
     case REMOVE_FROM_CART:
-      return [...state].map(item => item.id !== action.itemId)
+      return [...state].filter(item => item.id !== action.itemId)
     // case CHANGE_QUANTITY:
     //   return state.map(item => {
     //     if (item.id !== action.item.id) return item

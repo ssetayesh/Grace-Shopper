@@ -22,15 +22,17 @@ router.post('/login', async (req, res, next) => {
       })
 
       if (order) {
-        // console.log('have an order', order)
         req.session.orderId = order.id
+        req.session.save()
+        console.log('req.session after login', req.session)
       } else {
-        // console.log('need new order')
         const newOrder = db.models.orders.create({
           userId: user.id,
           status: false
         })
         req.session.orderId = newOrder.id
+        req.session.save()
+        console.log('req.session after login, new order', req.session)
       }
     }
   } catch (err) {
@@ -58,6 +60,8 @@ router.post('/logout', (req, res) => {
 })
 
 router.get('/me', (req, res) => {
+  req.session.wands = []
+  console.log('req.session', req.session)
   res.json(req.user)
 })
 

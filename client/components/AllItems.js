@@ -16,12 +16,11 @@ class AllItems extends React.Component {
   }
 
   componentDidMount() {
-    // console.log('this.props in CDM allitems', this.props)
     this.props.getItemsThunk()
   }
 
   handleAddToCart(id, price) {
-    // console.log('this.props in add', this)
+    console.log('adding to cart')
     this.props.addedToCart(id, price)
   }
 
