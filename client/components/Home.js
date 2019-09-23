@@ -11,7 +11,7 @@ const style = {
 class Home extends React.Component {
   render() {
     return (
-      <div>
+      <div className="home-page">
         <img
           src="https://www.vactualpapers.com/web/wallpapers/beautiful-landscape-high-resolution-4k-wallpaper-42/2560x1440.jpg"
           style={style}
