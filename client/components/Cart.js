@@ -12,6 +12,7 @@ class Cart extends React.Component {
     }
     this.removedFromCart = this.removedFromCart.bind(this)
     this.changedQuantity = this.changedQuantity.bind(this)
+    this.totalPrice = this.totalPrice.bind(this)
     //this.handleSubmit = this.handleSubmit.bind(this)
   }
 
@@ -39,6 +40,17 @@ class Cart extends React.Component {
     }
   }
 
+  totalPrice() {
+    const cart = this.props.cart[0]
+    let sum = 0.0
+    if (this.props.cart.length > 0) {
+      cart.items.forEach(element => {
+        sum = sum + Number(element.price)
+      })
+    }
+    return sum
+  }
+
   // handleSubmit (event) {
   //   try {
   //     event.preventDefault()
@@ -54,14 +66,6 @@ class Cart extends React.Component {
 
   render() {
     const cart = this.props.cart[0]
-
-    // let sum = 0.0
-    // if (this.props.cart.length > 0) {
-    //   this.props.cart[0].items.forEach(element => {
-    //     sum = sum + Number(element.price)
-    //   })
-    // }
-
     return (
       <div>
         <center>
@@ -114,6 +118,8 @@ class Cart extends React.Component {
                 >
                   Remove From Cart
                 </button>
+                <br />
+                <button>Delete {item.name}</button>
               </div>
             ))}
           </div>
@@ -121,8 +127,9 @@ class Cart extends React.Component {
           <div>Cart Empty</div>
         )}
         <hr />
-        {/* <p>TOTAL PRICE: ${sum}</p> */}
+        <p>TOTAL PRICE: ${this.totalPrice()}</p>
         <button>Checkout</button>
+        <br />
       </div>
     )
   }

@@ -23,14 +23,15 @@ class Routes extends Component {
       <Switch>
         {/* Routes placed here are available to all visitors */}
         <Route exact path="/" component={Home} />
-        <Route exact path="/items" component={AllItems} />
+        <Route exact path="/wands" component={AllItems} />
         <Route exact path="/guest/cart" component={Cart} />
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
         {isLoggedIn && (
           <Switch>
             {/* Routes placed here are only available after logging in */}
-            <Route exact path="/items" component={AllItems} />
+            <Route exact path="/" component={Home} />
+            <Route exact path="/wands" component={AllItems} />
             <Route exact path="/cart" component={Cart} />
             <Route path="/home" component={UserHome} />
           </Switch>
