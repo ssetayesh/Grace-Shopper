@@ -6,9 +6,9 @@ import {throws} from 'assert'
 class Cart extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {
-      totalPrice: 0.0
-    }
+    // this.state = {
+    //   totalPrice: 0.0
+    // }
   }
 
   componentDidMount() {
@@ -17,19 +17,17 @@ class Cart extends React.Component {
       console.log('guest cart')
     } else {
       this.props.gotCart(this.props.id)
-      console.log('This.props.cart in CDM', this.props.cart)
     }
   }
 
   render() {
     const cart = this.props.cart[0]
-    console.log('this.props.cart in Cart render', this.props.cart)
+
     let sum = 0.0
     if (this.props.cart.length > 0) {
       this.props.cart[0].items.forEach(element => {
         sum = sum + Number(element.price)
       })
-      console.log('sum', sum)
     }
 
     return (
@@ -53,6 +51,7 @@ class Cart extends React.Component {
         )}
         <hr />
         <p>TOTAL PRICE: ${sum}</p>
+        <button>Checkout</button>
       </div>
     )
   }

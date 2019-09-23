@@ -10,6 +10,7 @@ const TOTAL_PRICE_IN_CART = 'TOTAL_PRICE_IN_CART'
 const REMOVE_FROM_CART = 'REMOVE_FROM_CART'
 const CHANGE_QUANTITY = 'CHANGE_QUANTITY'
 const CLEAR_CART = 'CLEAR_CART'
+const CHECKOUT = 'CHECKOUT'
 
 /**
  * INITIAL STATE
@@ -40,11 +41,15 @@ const changeQuantity = item => ({
   item
 })
 
-const totalPrice = totalPrice => ({
-  type: TOTAL_PRICE_IN_CART,
-  totalPrice
-})
+// const totalPrice = totalPrice => ({
+//   type: TOTAL_PRICE_IN_CART,
+//   totalPrice
+// })
 
+const checkout = orderId => ({
+  type: CHECKOUT,
+  orderId
+})
 /**
  * THUNK CREATORS
  */
@@ -125,13 +130,13 @@ export default function(state = initialState, action) {
       return [...state, action.item]
     case REMOVE_FROM_CART:
       return [...state].map(item => item.id !== action.itemId)
-    case CHANGE_QUANTITY:
-      return state.map(item => {
-        if (item.id !== action.item.id) return item
-        else return action.item
-      })
+    // case CHANGE_QUANTITY:
+    //   return state.map(item => {
+    //     if (item.id !== action.item.id) return item
+    //     else return action.item
+    //   })
     case CLEAR_CART:
-      return []
+      return initialState
     default:
       return state
   }
