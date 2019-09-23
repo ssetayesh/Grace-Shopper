@@ -10,6 +10,7 @@ const TOTAL_PRICE_IN_CART = 'TOTAL_PRICE_IN_CART'
 const REMOVE_FROM_CART = 'REMOVE_FROM_CART'
 // const CHANGE_QUANTITY = 'CHANGE_QUANTITY'
 const CLEAR_CART = 'CLEAR_CART'
+const CHECKOUT = 'CHECKOUT'
 
 /**
  * INITIAL STATE
@@ -40,11 +41,15 @@ const removeFromCart = itemId => ({
 //   item
 // })
 
-const addToTotal = price => ({
-  type: TOTAL_PRICE_IN_CART,
-  price
-})
+// const totalPrice = totalPrice => ({
+//   type: TOTAL_PRICE_IN_CART,
+//   totalPrice
+// })
 
+const checkout = orderId => ({
+  type: CHECKOUT,
+  orderId
+})
 /**
  * THUNK CREATORS
  */
@@ -87,15 +92,16 @@ export const removedFromCart = itemId => {
   }
 }
 
-export const updateTotal = (userId, itemPrice) => {
-  return async dispatch => {
-    try {
-      const {data} = await axios.put(`/api/user/${userId}/cart`, itemPrice)
-    } catch (error) {
-      next(error)
-    }
-  }
-}
+// export const updateTotal = (newTotal) => {
+//   return async dispatch => {
+//     try {
+//       // const {data} = await axios.get(`/api/orders/user/${userId}/cart`);
+//       // const
+//      } catch (error) {
+//       console.log('Error: ', error)
+//     }
+//   }
+// }
 
 // export const changedQuantity = (item, newQuantity) => {
 //   return async dispatch => {
@@ -124,16 +130,14 @@ export default function(state = initialState, action) {
     case ADD_TO_CART:
       return [...state, action.item]
     case REMOVE_FROM_CART:
-      return [...state].map(item => {
-        if (item.id !== action.itemId) return item
-      })
+      return [...state].filter(item => item.id !== action.itemId)
     // case CHANGE_QUANTITY:
     //   return state.map(item => {
     //     if (item.id !== action.item.id) return item
     //     else return action.item
     //   })
     case CLEAR_CART:
-      return []
+      return initialState
     default:
       return state
   }
