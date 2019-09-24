@@ -60,6 +60,21 @@ router.post('/', async (req, res, next) => {
   }
 })
 
+router.put('/', async (req, res, next) => {
+  try {
+    const update = {
+      quantityAtSale: req.body.quantity,
+      priceAtSale: req.body.price
+    }
+    const updatedWand = await orderItems.update(update, {
+      where: {id: req.body.id}
+    })
+    res.json(updatedWand)
+  } catch (error) {
+    next(error)
+  }
+})
+
 router.delete('/:itemId', async (req, res, next) => {
   try {
     const deletedItem = await orderItems.destroy({
