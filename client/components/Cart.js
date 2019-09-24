@@ -1,6 +1,11 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {gotCart, removedFromCart, checkoutCart} from '../store/cart'
+import {
+  gotCart,
+  removedFromCart,
+  checkoutCart,
+  changedQuantity
+} from '../store/cart'
 import {throws} from 'assert'
 
 class Cart extends React.Component {
@@ -128,6 +133,8 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   gotCart: userId => dispatch(gotCart(userId)),
   removedFromCart: itemId => dispatch(removedFromCart(itemId)),
+  changedQuantity: (itemId, newPrice) =>
+    dispatch(changedQuantity(itemId, newPrice)),
   checkoutCart: (orderId, totalPrice) =>
     dispatch(checkoutCart(orderId, totalPrice))
 })
