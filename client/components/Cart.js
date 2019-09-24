@@ -37,7 +37,14 @@ class Cart extends React.Component {
 
   handleClick(totalPrice) {
     try {
-      const orderId = this.props.cart[0].orderItems.orderId
+      let orderId
+      console.log('this.props', this.props)
+      if (!this.props.cart[0].orderItems) {
+        orderId = null
+      } else {
+        orderId = this.props.cart[0].orderItems.orderId
+      }
+      console.log('orderId', orderId)
       this.props.checkoutCart(orderId, totalPrice)
     } catch (error) {
       console.log('Order could not be submitted!', error)

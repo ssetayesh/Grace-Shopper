@@ -63,3 +63,19 @@ router.put('/user/:userId/cart', async (req, res, next) => {
     next(error)
   }
 })
+
+router.post('/user/guest/cart', async (req, res, next) => {
+  try {
+    console.log('in guest put')
+    const newOrder = await Orders.create({
+      status: true,
+      userId: null,
+      totalPrice: req.body.totalPrice
+    })
+    console.log('newOrder is created')
+    req.session.wands = []
+    res.json(newOrder)
+  } catch (error) {
+    next(error)
+  }
+})

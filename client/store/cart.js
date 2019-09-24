@@ -121,14 +121,25 @@ export const changedQuantity = (item, newQuantity) => {
 export const checkoutCart = (orderId, totalPrice) => {
   return async dispatch => {
     try {
-      const order = await axios.get(`/api/orders/${orderId}`)
       const completedOrder = {
         totalPrice: totalPrice
       }
-      await axios.put(
-        `/api/orders/user/${order.data.userId}/cart`,
-        completedOrder
-      )
+
+      if (orderId !== null) {
+        const order = await axios.get(`/api/orders/${orderId}`)
+        await axios.put(
+          `/api/orders/user/${order.data.userId}/cart`,
+          completedOrder
+        )
+      } else {
+        const {data} = await axios.post(
+          `/api/orders/user/guest/cart`,
+          completedOrder
+        )
+        console.log('After post request', data)
+        orderId = data.id
+      }
+      console.log('new orderid', orderId)
       dispatch(checkout(orderId, totalPrice))
     } catch (error) {
       console.log('Error!', error)
