@@ -54,7 +54,6 @@ router.post('/', async (req, res, next) => {
         }
       })
       res.json(wandToAdd)
-      // res.json(createItemsInCart)
     }
   } catch (error) {
     next(error)

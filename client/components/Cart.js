@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {gotCart, removedFromCart} from '../store/cart'
+import {gotCart, removedFromCart, checkoutCart} from '../store/cart'
 import {throws} from 'assert'
 
 class Cart extends React.Component {
@@ -10,6 +10,7 @@ class Cart extends React.Component {
     //   totalPrice: 0.0
     // }
     this.removedFromCart = this.removedFromCart.bind(this)
+    this.handleClick = this.handleClick.bind(this)
   }
 
   componentDidMount() {
@@ -29,9 +30,19 @@ class Cart extends React.Component {
     return sum
   }
 
-  async removedFromCart(item) {
+  removedFromCart(item) {
     this.props.removedFromCart(item)
     //this.props.gotCart(this.props.id)
+  }
+
+  handleClick(totalPrice) {
+    try {
+      // event.preventDefault();
+      const orderId = this.props.cart[0].orderItems.orderId
+      this.props.checkoutCart(orderId, totalPrice)
+    } catch (error) {
+      console.log('Order could not be submitted!', error)
+    }
   }
 
   render() {
@@ -53,7 +64,7 @@ class Cart extends React.Component {
                 <img src={item.img} className="cart-wand-img" />
                 <br />
                 <button
-                  value="remove"
+                  type="reset"
                   onClick={() => this.removedFromCart(item.id)}
                 >
                   Remove From Cart
@@ -66,7 +77,12 @@ class Cart extends React.Component {
         )}
         <hr />
         <p>TOTAL PRICE: ${this.totalPrice()}</p>
-        <button>Checkout</button>
+        <button
+          type="submit"
+          onClick={() => this.handleClick(this.totalPrice())}
+        >
+          Checkout
+        </button>
         <br />
       </div>
     )
@@ -80,7 +96,9 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   gotCart: userId => dispatch(gotCart(userId)),
-  removedFromCart: itemId => dispatch(removedFromCart(itemId))
+  removedFromCart: itemId => dispatch(removedFromCart(itemId)),
+  checkoutCart: (orderId, totalPrice) =>
+    dispatch(checkoutCart(orderId, totalPrice))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Cart)

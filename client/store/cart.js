@@ -7,7 +7,6 @@ import {session} from 'redux-react-session'
  */
 const GET_CART = 'GET_CART'
 const ADD_TO_CART = 'ADD_TO_CART'
-const TOTAL_PRICE_IN_CART = 'TOTAL_PRICE_IN_CART'
 const REMOVE_FROM_CART = 'REMOVE_FROM_CART'
 const CHANGE_QUANTITY = 'CHANGE_QUANTITY'
 const CLEAR_CART = 'CLEAR_CART'
@@ -48,7 +47,7 @@ const changeQuantity = item => ({
 //   totalPrice
 // })
 
-const checkout = orderId => ({
+const checkout = (orderId, totalPrice) => ({
   type: CHECKOUT,
   orderId
 })
@@ -124,12 +123,28 @@ export const changedQuantity = (item, newQuantity) => {
       })
       dispatch(changeQuantity(res))
     } catch (error) {
-      next(error)
+      console.log('Error!', error)
     }
   }
 }
 
-// export const totalPrice = (pr)
+export const checkoutCart = (orderId, totalPrice) => {
+  return async dispatch => {
+    try {
+      const order = await axios.get(`/api/orders/${orderId}`)
+      const completedOrder = {
+        totalPrice: totalPrice
+      }
+      await axios.put(
+        `/api/orders/user/${order.data.userId}/cart`,
+        completedOrder
+      )
+      dispatch(checkout(orderId, totalPrice))
+    } catch (error) {
+      console.log('Error!', error)
+    }
+  }
+}
 
 /**
  * REDUCER
@@ -140,10 +155,6 @@ export default function(state = initialState, action) {
       console.log('state in get action', state)
       return action.items
     case ADD_TO_CART:
-      console.log('action.item in add_to_cart', action.item)
-      // const wand = {
-
-      // }
       return [...state, action.item]
     case REMOVE_FROM_CART:
       return [...state].filter(item => item.id !== action.itemId)
@@ -152,6 +163,8 @@ export default function(state = initialState, action) {
     //     if (item.id !== action.item.id) return item
     //     else return action.item
     //   })
+    case CHECKOUT:
+      console.log('checkout reducer')
     case CLEAR_CART:
       return initialState
     default:
