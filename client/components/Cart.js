@@ -2,6 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {gotCart, removedFromCart, checkoutCart} from '../store/cart'
 import {throws} from 'assert'
+import Notifications, {notify} from 'react-notify-toast'
 
 class Cart extends React.Component {
   constructor(props) {
@@ -46,6 +47,7 @@ class Cart extends React.Component {
       }
       console.log('orderId', orderId)
       this.props.checkoutCart(orderId, totalPrice)
+      notify.show('Checkout Complete!')
     } catch (error) {
       console.log('Order could not be submitted!', error)
     }
@@ -57,6 +59,7 @@ class Cart extends React.Component {
 
     return (
       <div>
+        <Notifications />
         <center>
           <h2>Cart</h2>
         </center>

@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
+import Notifications, {notify} from 'react-notify-toast'
 
 /**
  * COMPONENT
@@ -10,6 +11,8 @@ export const UserHome = props => {
 
   return (
     <div>
+      <Notifications />
+      {notify.show(`Login Success, welcome ${email}!`)}
       <h3>Welcome, {email}</h3>
     </div>
   )
