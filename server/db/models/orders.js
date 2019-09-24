@@ -5,9 +5,9 @@ const Orders = db.define('orders', {
   // totalQuantity: {
   //   type: Sequelize.INTEGER
   // },
-  // totalPrice: {
-  //   type: Sequelize.DECIMAL(10, 2)
-  // },
+  totalPrice: {
+    type: Sequelize.FLOAT(4, 2)
+  },
   status: {
     type: Sequelize.BOOLEAN,
     default: false

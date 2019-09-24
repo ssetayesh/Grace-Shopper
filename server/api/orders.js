@@ -47,8 +47,8 @@ router.put('/user/:userId/cart', async (req, res, next) => {
   try {
     const cart = await Orders.update(
       {
-        status: true
-        // totalPrice: req.body.totalPrice
+        status: true,
+        totalPrice: req.body.totalPrice
       },
       {
         where: {

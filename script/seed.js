@@ -96,13 +96,13 @@ async function seed() {
   const orders = await Promise.all([
     Orders.create({
       // totalQuantity: 6,
-      // totalPrice: 60,
+      totalPrice: 35.0,
       status: false,
       userId: 2
     }),
     Orders.create({
       // totalQuantity: 2,
-      // totalPrice: 49,
+      totalPrice: 35.0,
       status: true,
       userId: 1
     })
@@ -112,14 +112,14 @@ async function seed() {
     orderItems.create({
       orderId: 2,
       itemId: 1,
-      quanitityAtSale: 2,
-      priceAtSale: 10
+      // quanitityAtSale: 2,
+      priceAtSale: 30.0
     }),
     orderItems.create({
       orderId: 1,
       itemId: 2,
-      quanitityAtSale: 2,
-      priceAtSale: 10
+      // quanitityAtSale: 2,
+      priceAtSale: 35.0
     })
   ])
 

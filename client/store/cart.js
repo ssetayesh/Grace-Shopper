@@ -49,7 +49,8 @@ const changeQuantity = item => ({
 
 const checkout = (orderId, totalPrice) => ({
   type: CHECKOUT,
-  orderId
+  orderId,
+  totalPrice
 })
 /**
  * THUNK CREATORS
@@ -101,17 +102,6 @@ export const removedFromCart = itemId => {
     }
   }
 }
-
-// export const updateTotal = (newTotal) => {
-//   return async dispatch => {
-//     try {
-//       // const {data} = await axios.get(`/api/orders/user/${userId}/cart`);
-//       // const
-//      } catch (error) {
-//       console.log('Error: ', error)
-//     }
-//   }
-// }
 
 export const changedQuantity = (item, newQuantity) => {
   return async dispatch => {
