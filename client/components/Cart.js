@@ -47,7 +47,7 @@ class Cart extends React.Component {
       }
       console.log('orderId', orderId)
       this.props.checkoutCart(orderId, totalPrice)
-      notify.show('Checkout Complete!')
+      notify.show('Checkout Complete! Your order are on its way!', 'success')
     } catch (error) {
       console.log('Order could not be submitted!', error)
     }
