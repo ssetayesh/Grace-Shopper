@@ -11,6 +11,7 @@ class Cart extends React.Component {
     // }
     this.removedFromCart = this.removedFromCart.bind(this)
     this.handleClick = this.handleClick.bind(this)
+    this.totalQuantity = this.totalQuantity.bind(this)
   }
 
   componentDidMount() {
@@ -18,7 +19,6 @@ class Cart extends React.Component {
   }
 
   totalPrice() {
-    console.log('this.props in helper')
     const cart = this.props.cart
     let sum = 0.0
 
@@ -30,6 +30,15 @@ class Cart extends React.Component {
     return sum
   }
 
+  totalQuantity(itemId, quantity, price) {
+    const cart = this.props.cart
+    for (let i = 0; i < cart.length; i++) {
+      if (cart[i].id === itemId) {
+        this.props.changedQuantity(itemId, price * quantity)
+      }
+    }
+  }
+
   removedFromCart(item) {
     this.props.removedFromCart(item)
     //this.props.gotCart(this.props.id)
@@ -38,13 +47,13 @@ class Cart extends React.Component {
   handleClick(totalPrice) {
     try {
       let orderId
-      console.log('this.props', this.props)
+
       if (!this.props.cart[0].orderItems) {
         orderId = null
       } else {
         orderId = this.props.cart[0].orderItems.orderId
       }
-      console.log('orderId', orderId)
+
       this.props.checkoutCart(orderId, totalPrice)
     } catch (error) {
       console.log('Order could not be submitted!', error)
@@ -52,7 +61,7 @@ class Cart extends React.Component {
   }
 
   render() {
-    console.log('this.props', this.props)
+    console.log('this.props', this.props.cart)
     const cart = this.props.cart
 
     return (
@@ -69,6 +78,22 @@ class Cart extends React.Component {
                 </p>
                 <img src={item.img} className="cart-wand-img" />
                 <br />
+                <select
+                  onChange={() =>
+                    this.totalQuantity(item.id, event.target.value, item.price)
+                  }
+                >
+                  <option value="1">Qty: 1</option>
+                  <option value="2">Qty: 2</option>
+                  <option value="3">Qty: 3</option>
+                  <option value="4">Qty: 4</option>
+                  <option value="5">Qty: 5</option>
+                  <option value="6">Qty: 6</option>
+                  <option value="7">Qty: 7</option>
+                  <option value="8">Qty: 8</option>
+                  <option value="9">Qty: 9</option>
+                  <option value="10">Qty: 10</option>
+                </select>
                 <button
                   type="reset"
                   onClick={() => this.removedFromCart(item.id)}

@@ -37,9 +37,10 @@ const removeFromCart = itemId => ({
   itemId
 })
 
-const changeQuantity = item => ({
+const changeQuantity = (itemId, newPrice) => ({
   type: CHANGE_QUANTITY,
-  item
+  itemId,
+  newPrice
 })
 
 // const totalPrice = totalPrice => ({
@@ -103,17 +104,27 @@ export const removedFromCart = itemId => {
   }
 }
 
-export const changedQuantity = (item, newQuantity) => {
+// export const changedQuantity = (item, newQuantity) => {
+//   return async dispatch => {
+//     try {
+//       const newPrice = item.price * newQuantity
+//       const {res} = await axios.put(`/api/orderItems/${item.id}`, {
+//         quantityAtSale: newQuantity,
+//         priceAtSale: newPrice
+//       })
+//       dispatch(changeQuantity(res))
+//     } catch (error) {
+//       console.log('Error!', error)
+//     }
+//   }
+// }
+
+export const changedQuantity = (itemId, newPrice) => {
   return async dispatch => {
     try {
-      const newPrice = item.price * newQuantity
-      const {res} = await axios.put(`/api/orderItems/${item.id}`, {
-        quantityAtSale: newQuantity,
-        priceAtSale: newPrice
-      })
-      dispatch(changeQuantity(res))
+      dispatch(changeQuantity(itemId, newPrice))
     } catch (error) {
-      console.log('Error!', error)
+      console.error(error)
     }
   }
 }
@@ -163,6 +174,14 @@ export default function(state = initialState, action) {
     //   return state.map(item => {
     //     if (item.id !== action.item.id) return item
     //     else return action.item
+    //   })
+    // case CHANGE_QUANTITY:
+    //   return [...state].map(item => {
+    //     if (item.id === action.itemId) {
+    //       item.price = action.newPrice;
+    //       return item
+    //     }
+    //     else return item
     //   })
     case CHECKOUT:
       console.log('checkout reducer')
