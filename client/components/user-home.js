@@ -12,7 +12,7 @@ export const UserHome = props => {
   return (
     <div>
       <Notifications />
-      {notify.show(`Login Success, welcome ${email}!`)}
+      {notify.show(`Login Success,`, 'success')}
       <h3>Welcome, {email}</h3>
     </div>
   )

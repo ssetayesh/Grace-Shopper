@@ -1,15 +1,11 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {gotCart, removedFromCart, checkoutCart} from '../store/cart'
-import {throws} from 'assert'
 import Notifications, {notify} from 'react-notify-toast'
 
 class Cart extends React.Component {
   constructor(props) {
     super(props)
-    // this.state = {
-    //   totalPrice: 0.0
-    // }
     this.removedFromCart = this.removedFromCart.bind(this)
     this.handleClick = this.handleClick.bind(this)
   }
@@ -33,7 +29,6 @@ class Cart extends React.Component {
 
   removedFromCart(item) {
     this.props.removedFromCart(item)
-    //this.props.gotCart(this.props.id)
   }
 
   handleClick(totalPrice) {
