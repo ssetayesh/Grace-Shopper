@@ -37,7 +37,6 @@ class Cart extends React.Component {
 
   handleClick(totalPrice) {
     try {
-      // event.preventDefault();
       const orderId = this.props.cart[0].orderItems.orderId
       this.props.checkoutCart(orderId, totalPrice)
     } catch (error) {

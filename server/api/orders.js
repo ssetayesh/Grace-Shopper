@@ -57,8 +57,6 @@ router.put('/user/:userId/cart', async (req, res, next) => {
         }
       }
     )
-
-    console.log('new cart', cart)
     if (!cart) res.status(404).send('Cart not found')
     res.json(cart)
   } catch (error) {
