@@ -175,14 +175,13 @@ export default function(state = initialState, action) {
     //     if (item.id !== action.item.id) return item
     //     else return action.item
     //   })
-    // case CHANGE_QUANTITY:
-    //   return [...state].map(item => {
-    //     if (item.id === action.itemId) {
-    //       item.price = action.newPrice;
-    //       return item
-    //     }
-    //     else return item
-    //   })
+    case CHANGE_QUANTITY:
+      return [...state].map(item => {
+        if (item.id === action.itemId) {
+          item.price = action.newPrice
+          return item
+        } else return item
+      })
     case CHECKOUT:
       console.log('checkout reducer')
     case CLEAR_CART:
