@@ -1,6 +1,7 @@
 const router = require('express').Router()
 const db = require('../db')
 const {orderItems} = require('../db/models')
+const {hideAPI} = require('./index')
 module.exports = router
 
 router.get('/', async (req, res, next) => {

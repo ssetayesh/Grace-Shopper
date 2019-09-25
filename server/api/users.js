@@ -1,8 +1,16 @@
 const router = require('express').Router()
-const {User, Orders, orderItems} = require('../db/models')
+const {User} = require('../db/models')
 module.exports = router
 
-router.get('/', async (req, res, next) => {
+const hideAPI = () => (req, res) => {
+  if (!req.user.admin) {
+    return res.send(
+      'Forbidden! You do not have access rights to API routes. Only Admin has access rights'
+    )
+  }
+}
+
+router.get('/', hideAPI(), async (req, res, next) => {
   try {
     const users = await User.findAll({
       attributes: ['id', 'email']
@@ -13,7 +21,7 @@ router.get('/', async (req, res, next) => {
   }
 })
 
-router.get('/:id', async (req, res, next) => {
+router.get('/:id', hideAPI(), async (req, res, next) => {
   try {
     const id = req.params.id
     const user = await User.findOne({
