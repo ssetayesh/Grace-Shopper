@@ -3,6 +3,7 @@ import {connect} from 'react-redux'
 import {getItemsThunk} from '../store/item'
 import {addedToCart} from '../store/cart'
 import SingleItem from './SingleItem'
+import {notify} from 'react-notify-toast'
 
 class AllItems extends React.Component {
   constructor(props) {
@@ -19,6 +20,9 @@ class AllItems extends React.Component {
 
   handleAddToCart(id, price) {
     this.props.addedToCart(id, price, 1)
+    {
+      notify.show('This wand has been added to your cart!', 'success', 2600)
+    }
   }
 
   render() {

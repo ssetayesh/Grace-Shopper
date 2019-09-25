@@ -108,7 +108,6 @@ export const changedQuantity = (itemId, newPrice, quantity, orderId) => {
         orderId: orderId
       }
       await axios.put(`/api/orderItems/`, newInfo)
-      console.log('data in changedQuantity')
       dispatch(changeQuantity(itemId, newPrice, quantity))
     } catch (error) {
       console.error(error)
