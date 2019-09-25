@@ -7,6 +7,7 @@ import {
   changedQuantity
 } from '../store/cart'
 import {throws} from 'assert'
+import Notifications, {notify} from 'react-notify-toast' //**npm install this
 
 class Cart extends React.Component {
   constructor(props) {
@@ -76,6 +77,7 @@ class Cart extends React.Component {
       }
 
       this.props.checkoutCart(orderId, totalPrice)
+      notify.show('Checkout Complete! Your orders are on its way!', 'success')
     } catch (error) {
       console.log('Order could not be submitted!', error)
     }
@@ -87,6 +89,7 @@ class Cart extends React.Component {
 
     return (
       <div>
+        <Notifications />
         <center>
           <h2>Cart</h2>
         </center>
