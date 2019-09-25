@@ -1,9 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {BrowserRouter as Router, Route, Switch} from 'react-router-dom'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {logout} from '../store'
+import {IoIosCart} from 'react-icons/io'
 
 const Navbar = ({handleClick, isLoggedIn}) => (
   <div className="navBar">
@@ -16,7 +16,9 @@ const Navbar = ({handleClick, isLoggedIn}) => (
             Logout
           </a>
           <Link to="/wands">Wands</Link>
-          <Link to="/cart">Cart</Link>
+          <Link to="/cart">
+            <IoIosCart />
+          </Link>
         </div>
       ) : (
         <div>
@@ -25,7 +27,9 @@ const Navbar = ({handleClick, isLoggedIn}) => (
           <Link to="/login">Login</Link>
           <Link to="/signup">Sign Up</Link>
           <Link to="/wands">Wands</Link>
-          <Link to="/guest/cart">Cart</Link>
+          <Link to="/guest/cart">
+            <IoIosCart />
+          </Link>
         </div>
       )}
     </nav>

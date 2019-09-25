@@ -8,12 +8,13 @@ async function seed() {
   console.log('db synced!')
 
   const users = await Promise.all([
-    User.create({email: 'cody@email.com', password: '123'}),
-    User.create({email: 'murphy@email.com', password: '123'}),
+    User.create({email: 'cody@email.com', password: '123', admin: true}),
+    User.create({email: 'murphy@email.com', password: '123', admin: false}),
     User.create({
       email: 'janedoe@email.com',
       password: 'random',
-      address: '24 Hello Street'
+      address: '24 Hello Street',
+      admin: false
     })
   ])
 
@@ -95,14 +96,14 @@ async function seed() {
 
   const orders = await Promise.all([
     Orders.create({
-      // totalQuantity: 6,
-      // totalPrice: 60,
+      totalQuantity: 1,
+      totalPrice: 35.0,
       status: false,
       userId: 2
     }),
     Orders.create({
-      // totalQuantity: 2,
-      // totalPrice: 49,
+      totalQuantity: 1,
+      totalPrice: 35.0,
       status: true,
       userId: 1
     })
@@ -112,14 +113,14 @@ async function seed() {
     orderItems.create({
       orderId: 2,
       itemId: 1,
-      quanitityAtSale: 2,
-      priceAtSale: 10
+      quantityAtSale: 1,
+      priceAtSale: 30.0
     }),
     orderItems.create({
       orderId: 1,
       itemId: 2,
-      quanitityAtSale: 2,
-      priceAtSale: 10
+      quantityAtSale: 1,
+      priceAtSale: 35.0
     })
   ])
 

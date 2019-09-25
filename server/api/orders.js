@@ -1,6 +1,5 @@
 const router = require('express').Router()
 const {Orders, Item, orderItems} = require('../db/models')
-// const orderItems = require('../db/models/orderItems')
 module.exports = router
 
 router.get('/', async (req, res, next) => {
@@ -45,16 +44,51 @@ router.get('/user/:userId/cart', async (req, res, next) => {
 
 router.put('/user/:userId/cart', async (req, res, next) => {
   try {
-    const cart = await Orders.findAll({
+    const allQuans = await orderItems.findAll({
       where: {
-        userId: req.params.userId,
-        status: false
-      },
-      include: [{model: Item}]
+        orderId: req.body.orderId
+      }
     })
-    console.log('cart in put', cart)
+
+    let totalQuan = 0
+    for (let i = 0; i < allQuans.length; i++) {
+      totalQuan += allQuans[i].quantityAtSale
+    }
+
+    const cart = await Orders.update(
+      {
+        status: true,
+        totalPrice: req.body.totalPrice,
+        totalQuantity: totalQuan
+      },
+      {
+        where: {
+          userId: req.params.userId,
+          status: false
+        }
+      }
+    )
     if (!cart) res.status(404).send('Cart not found')
     res.json(cart)
+  } catch (error) {
+    next(error)
+  }
+})
+
+router.post('/user/guest/cart', async (req, res, next) => {
+  try {
+    let totalQuan = 0
+    for (let i = 0; i < req.session.wands.length; i++) {
+      totalQuan += req.session.wands[i].quantity
+    }
+    const newOrder = await Orders.create({
+      status: true,
+      userId: null,
+      totalPrice: req.body.totalPrice,
+      totalQuantity: totalQuan
+    })
+    req.session.wands = []
+    res.json(newOrder)
   } catch (error) {
     next(error)
   }

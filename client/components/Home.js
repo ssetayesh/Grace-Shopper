@@ -3,9 +3,7 @@ import React from 'react'
 const style = {
   position: 'fixed',
   top: 50,
-  left: 0,
-  'min-width': '100%',
-  'min-height': '100%'
+  left: 0
 }
 
 class Home extends React.Component {

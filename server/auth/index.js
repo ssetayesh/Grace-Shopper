@@ -26,7 +26,7 @@ router.post('/login', async (req, res, next) => {
         req.session.save()
         console.log('req.session after login', req.session)
       } else {
-        const newOrder = db.models.orders.create({
+        const newOrder = await db.models.orders.create({
           userId: user.id,
           status: false
         })
@@ -44,6 +44,12 @@ router.post('/signup', async (req, res, next) => {
   try {
     const user = await User.create(req.body)
     req.login(user, err => (err ? next(err) : res.json(user)))
+    const newOrder = await db.models.orders.create({
+      userId: user.id,
+      status: false
+    })
+    req.session.orderId = newOrder.id
+    req.session.save()
   } catch (err) {
     if (err.name === 'SequelizeUniqueConstraintError') {
       res.status(401).send('User already exists')
