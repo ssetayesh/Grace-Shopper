@@ -5,7 +5,7 @@ module.exports = router
 const hideAPI = () => (req, res) => {
   if (!req.user.admin) {
     return res.send(
-      'Forbidden! You do not have access rights to API routes. Only Admin has access rights'
+      'Forbidden! You do not have access rights to this page. Only Admin has access rights'
     )
   }
 }
