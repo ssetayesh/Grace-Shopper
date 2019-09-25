@@ -73,7 +73,6 @@ class Cart extends React.Component {
   }
 
   render() {
-    console.log('this.props in render', this.props)
     const cart = this.props.cart
 
     return (
