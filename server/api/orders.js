@@ -1,6 +1,5 @@
 const router = require('express').Router()
 const {Orders, Item, orderItems} = require('../db/models')
-// const orderItems = require('../db/models/orderItems')
 module.exports = router
 
 router.get('/', async (req, res, next) => {
@@ -78,7 +77,6 @@ router.put('/user/:userId/cart', async (req, res, next) => {
 
 router.post('/user/guest/cart', async (req, res, next) => {
   try {
-    console.log('in guest put')
     let totalQuan = 0
     for (let i = 0; i < req.session.wands.length; i++) {
       totalQuan += req.session.wands[i].quantity
@@ -89,7 +87,6 @@ router.post('/user/guest/cart', async (req, res, next) => {
       totalPrice: req.body.totalPrice,
       totalQuantity: totalQuan
     })
-    console.log('newOrder is created')
     req.session.wands = []
     res.json(newOrder)
   } catch (error) {

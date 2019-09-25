@@ -5,10 +5,7 @@ module.exports = router
 
 router.get('/', async (req, res, next) => {
   try {
-    //route for guest's items in cart (not checked out)
-    console.log('session in get', req.session)
     const wandsInCart = req.session.wands
-    console.log('req.session.wands in api', wandsInCart)
     res.json(wandsInCart)
   } catch (error) {
     next(error)
@@ -17,15 +14,12 @@ router.get('/', async (req, res, next) => {
 
 router.post('/', async (req, res, next) => {
   try {
-    console.log('hello in post')
     if (!req.user) {
-      //store the information on the session
       const wandImg = await db.models.item.findOne({
         where: {
           id: req.body.itemId
         }
       })
-
       const wand = {
         id: wandImg.id,
         name: wandImg.name,
@@ -37,11 +31,8 @@ router.post('/', async (req, res, next) => {
         req.session.wands = []
       }
       req.session.wands.push(wand)
-      console.log('req.session after push', req.session.wands)
       req.session.save()
     } else {
-      console.log('req.session in user post', req.session.orderId)
-      // const orderId = req.session.orderId;
       const createItemsInCart = await orderItems.create({
         itemId: req.body.itemId,
         priceAtSale: req.body.priceAtSale,
@@ -75,7 +66,6 @@ router.delete('/:itemId', async (req, res, next) => {
       const newWands = req.session.wands.filter(wand => {
         return req.params.itemId !== wand.id
       })
-      console.log('NEW WANDS', newWands)
       res.json(newWands)
     }
   } catch (error) {
@@ -86,7 +76,6 @@ router.delete('/:itemId', async (req, res, next) => {
 //edit quantity
 router.put('/', async (req, res, next) => {
   try {
-    console.log('editing quantity in put', req.body)
     if (req.body.orderId !== null) {
       const itemToEdit = await orderItems.findOne({
         where: {
@@ -98,17 +87,14 @@ router.put('/', async (req, res, next) => {
         quantityAtSale: +req.body.quantityAtSale,
         priceAtSale: +req.body.priceAtSale
       })
-      console.log('after update', itemToEdit)
       res.json(itemToEdit)
     } else {
-      console.log('order id is null in put')
       for (let i = 0; i < req.session.wands.length; i++) {
         if (req.session.wands[i].id === req.body.itemId) {
           req.session.wands[i].quantity = +req.body.quantityAtSale
           req.session.wands[i].price = +req.body.priceAtSale
         }
       }
-      console.log('new wands', req.session.wands)
       res.json(req.session.wands)
     }
   } catch (error) {

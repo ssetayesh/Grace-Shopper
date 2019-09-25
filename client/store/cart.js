@@ -45,11 +45,6 @@ const changeQuantity = (itemId, newPrice, quantity) => ({
   quantity
 })
 
-// const totalPrice = totalPrice => ({
-//   type: TOTAL_PRICE_IN_CART,
-//   totalPrice
-// })
-
 const checkout = (orderId, totalPrice) => ({
   type: CHECKOUT,
   orderId,
@@ -63,14 +58,10 @@ export const gotCart = userId => {
   return async dispatch => {
     try {
       if (userId) {
-        console.log('hello!')
         const res = await axios.get(`/api/orders/user/${userId}/cart`)
-        console.log('res.data if user has id', res.data[0].items)
         dispatch(getCart(res.data[0].items))
       } else {
-        console.log(' not hello!')
         const res = await axios.get('/api/orderItems/')
-        console.log('res for guest in thunk', res)
         dispatch(getCart(res.data))
       }
     } catch (error) {
@@ -87,9 +78,7 @@ export const addedToCart = (itemId, price, quantity) => {
         priceAtSale: price,
         quantityAtSale: quantity
       }
-      console.log('orderToCart', orderToCart)
       const {data} = await axios.post('/api/orderItems/', orderToCart)
-      console.log('jere')
       dispatch(addToCart(itemId, price, quantity, data))
     } catch (error) {
       console.log('Error!', error)
@@ -99,7 +88,6 @@ export const addedToCart = (itemId, price, quantity) => {
 
 export const removedFromCart = (itemId, orderId) => {
   return async dispatch => {
-    console.log('HERE', orderId)
     try {
       await axios.delete(`/api/orderItems/${itemId}`, orderId)
       dispatch(removeFromCart(itemId))
@@ -108,21 +96,6 @@ export const removedFromCart = (itemId, orderId) => {
     }
   }
 }
-
-// export const changedQuantity = (item, newQuantity) => {
-//   return async dispatch => {
-//     try {
-//       const newPrice = item.price * newQuantity
-//       const {res} = await axios.put(`/api/orderItems/${item.id}`, {
-//         quantityAtSale: newQuantity,
-//         priceAtSale: newPrice
-//       })
-//       dispatch(changeQuantity(res))
-//     } catch (error) {
-//       console.log('Error!', error)
-//     }
-//   }
-// }
 
 export const changedQuantity = (itemId, newPrice, quantity, orderId) => {
   return async dispatch => {

@@ -6,15 +6,11 @@ import {
   checkoutCart,
   changedQuantity
 } from '../store/cart'
-import {throws} from 'assert'
-import Notifications, {notify} from 'react-notify-toast' //**npm install this
+import Notifications, {notify} from 'react-notify-toast'
 
 class Cart extends React.Component {
   constructor(props) {
     super(props)
-    // this.state = {
-    //   totalPrice: 0.0
-    // }
     this.removedFromCart = this.removedFromCart.bind(this)
     this.handleClick = this.handleClick.bind(this)
     this.totalQuantity = this.totalQuantity.bind(this)
@@ -27,7 +23,6 @@ class Cart extends React.Component {
   totalPrice() {
     const cart = this.props.cart
     let sum = 0.0
-
     if (cart.length > 0) {
       cart.forEach(element => {
         sum = sum + Number(element.price)
@@ -38,15 +33,12 @@ class Cart extends React.Component {
 
   totalQuantity(itemId, quantity, price) {
     const cart = this.props.cart
-    console.log('cart in totalQuantitiy and id', cart, itemId)
     let orderId
-
     if (!this.props.cart[0].orderItems) {
       orderId = null
     } else {
       orderId = this.props.cart[0].orderItems.orderId
     }
-
     for (let i = 0; i < cart.length; i++) {
       if (cart[i].id === itemId) {
         this.props.changedQuantity(itemId, price * quantity, quantity, orderId)
@@ -56,20 +48,17 @@ class Cart extends React.Component {
 
   removedFromCart(item) {
     let orderId
-
     if (!this.props.cart[0].orderItems) {
       orderId = null
     } else {
       orderId = this.props.cart[0].orderItems.orderId
     }
-    // console.log('in remove Cds', this.props)
     this.props.removedFromCart(item, orderId)
   }
 
   handleClick(totalPrice) {
     try {
       let orderId
-
       if (!this.props.cart[0].orderItems) {
         orderId = null
       } else {

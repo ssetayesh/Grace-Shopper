@@ -10,9 +10,7 @@ class AllItems extends React.Component {
     this.state = {
       quantity: 0
     }
-
     this.handleAddToCart = this.handleAddToCart.bind(this)
-    // this.handleQuantity = this.handleQuantity.bind(this)
   }
 
   componentDidMount() {
@@ -20,16 +18,8 @@ class AllItems extends React.Component {
   }
 
   handleAddToCart(id, price) {
-    console.log('adding to cart')
     this.props.addedToCart(id, price, 1)
   }
-
-  // handleQuantity(event) {
-  //   console.log('event', event)
-  //   this.setState({
-  //     quantity: event.target.value
-  //   })
-  // }
 
   render() {
     return (
@@ -47,7 +37,7 @@ class AllItems extends React.Component {
             ))}
           </div>
         ) : (
-          'err'
+          'error'
         )}
       </div>
     )
