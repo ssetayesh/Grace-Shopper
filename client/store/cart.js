@@ -25,10 +25,11 @@ const getCart = items => ({
   items
 })
 
-const addToCart = (itemId, price, item) => ({
+const addToCart = (itemId, price, quantity, item) => ({
   type: ADD_TO_CART,
   itemId,
   price,
+  quantity,
   item
 })
 
@@ -37,10 +38,11 @@ const removeFromCart = itemId => ({
   itemId
 })
 
-const changeQuantity = (itemId, newPrice) => ({
+const changeQuantity = (itemId, newPrice, quantity) => ({
   type: CHANGE_QUANTITY,
   itemId,
-  newPrice
+  newPrice,
+  quantity
 })
 
 // const totalPrice = totalPrice => ({
@@ -77,26 +79,29 @@ export const gotCart = userId => {
   }
 }
 
-export const addedToCart = (itemId, price) => {
+export const addedToCart = (itemId, price, quantity) => {
   return async dispatch => {
     try {
       const orderToCart = {
         itemId: itemId,
-        priceAtSale: price
+        priceAtSale: price,
+        quantityAtSale: quantity
       }
+      console.log('orderToCart', orderToCart)
       const {data} = await axios.post('/api/orderItems/', orderToCart)
-      console.log('jere', data)
-      dispatch(addToCart(itemId, price, data))
+      console.log('jere')
+      dispatch(addToCart(itemId, price, quantity, data))
     } catch (error) {
       console.log('Error!', error)
     }
   }
 }
 
-export const removedFromCart = itemId => {
+export const removedFromCart = (itemId, orderId) => {
   return async dispatch => {
+    console.log('HERE', orderId)
     try {
-      await axios.delete(`/api/orderItems/${itemId}`)
+      await axios.delete(`/api/orderItems/${itemId}`, orderId)
       dispatch(removeFromCart(itemId))
     } catch (error) {
       console.log('Error!', error)
@@ -119,20 +124,30 @@ export const removedFromCart = itemId => {
 //   }
 // }
 
-export const changedQuantity = (itemId, newPrice) => {
+export const changedQuantity = (itemId, newPrice, quantity, orderId) => {
   return async dispatch => {
+    console.log('in changed quantity thunk - itemId', newPrice, quantity)
     try {
-      dispatch(changeQuantity(itemId, newPrice))
+      const newInfo = {
+        itemId: itemId,
+        quantityAtSale: quantity,
+        priceAtSale: newPrice,
+        orderId: orderId
+      }
+      await axios.put(`/api/orderItems/`, newInfo)
+      console.log('data in changedQuantity')
+      dispatch(changeQuantity(itemId, newPrice, quantity))
     } catch (error) {
       console.error(error)
     }
   }
 }
 
-export const checkoutCart = (orderId, totalPrice) => {
+export const checkoutCart = (orderId, totalPrice, totalQuantity) => {
   return async dispatch => {
     try {
       const completedOrder = {
+        orderId: orderId,
         totalPrice: totalPrice
       }
 
@@ -151,7 +166,7 @@ export const checkoutCart = (orderId, totalPrice) => {
         orderId = data.id
       }
       console.log('new orderid', orderId)
-      dispatch(checkout(orderId, totalPrice))
+      dispatch(checkout(orderId, totalPrice, totalQuantity))
     } catch (error) {
       console.log('Error!', error)
     }
@@ -170,12 +185,8 @@ export default function(state = initialState, action) {
       return [...state, action.item]
     case REMOVE_FROM_CART:
       return [...state].filter(item => item.id !== action.itemId)
-    // case CHANGE_QUANTITY:
-    //   return state.map(item => {
-    //     if (item.id !== action.item.id) return item
-    //     else return action.item
-    //   })
     case CHANGE_QUANTITY:
+      console.log('state in changed quantity', state)
       return [...state].map(item => {
         if (item.id === action.itemId) {
           item.price = action.newPrice

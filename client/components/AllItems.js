@@ -21,7 +21,7 @@ class AllItems extends React.Component {
 
   handleAddToCart(id, price) {
     console.log('adding to cart')
-    this.props.addedToCart(id, price)
+    this.props.addedToCart(id, price, 1)
   }
 
   // handleQuantity(event) {
@@ -62,7 +62,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => ({
   getItemsThunk: () => dispatch(getItemsThunk()),
-  addedToCart: (id, price) => dispatch(addedToCart(id, price))
+  addedToCart: (id, price) => dispatch(addedToCart(id, price, 1))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(AllItems)

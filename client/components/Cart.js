@@ -35,18 +35,34 @@ class Cart extends React.Component {
     return sum
   }
 
-  async totalQuantity(itemId, quantity, price) {
+  totalQuantity(itemId, quantity, price) {
     const cart = this.props.cart
+    console.log('cart in totalQuantitiy and id', cart, itemId)
+    let orderId
+
+    if (!this.props.cart[0].orderItems) {
+      orderId = null
+    } else {
+      orderId = this.props.cart[0].orderItems.orderId
+    }
+
     for (let i = 0; i < cart.length; i++) {
       if (cart[i].id === itemId) {
-        this.props.changedQuantity(itemId, price * quantity)
+        this.props.changedQuantity(itemId, price * quantity, quantity, orderId)
       }
     }
   }
 
   removedFromCart(item) {
-    this.props.removedFromCart(item)
-    //this.props.gotCart(this.props.id)
+    let orderId
+
+    if (!this.props.cart[0].orderItems) {
+      orderId = null
+    } else {
+      orderId = this.props.cart[0].orderItems.orderId
+    }
+    // console.log('in remove Cds', this.props)
+    this.props.removedFromCart(item, orderId)
   }
 
   handleClick(totalPrice) {
@@ -66,7 +82,7 @@ class Cart extends React.Component {
   }
 
   render() {
-    console.log('this.props', this.props.cart)
+    console.log('this.props in render', this.props)
     const cart = this.props.cart
 
     return (
@@ -132,9 +148,10 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   gotCart: userId => dispatch(gotCart(userId)),
-  removedFromCart: itemId => dispatch(removedFromCart(itemId)),
-  changedQuantity: (itemId, newPrice) =>
-    dispatch(changedQuantity(itemId, newPrice)),
+  removedFromCart: (itemId, orderId) =>
+    dispatch(removedFromCart(itemId, orderId)),
+  changedQuantity: (itemId, newPrice, quantity, orderId) =>
+    dispatch(changedQuantity(itemId, newPrice, quantity, orderId)),
   checkoutCart: (orderId, totalPrice) =>
     dispatch(checkoutCart(orderId, totalPrice))
 })

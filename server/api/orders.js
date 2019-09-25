@@ -45,10 +45,22 @@ router.get('/user/:userId/cart', async (req, res, next) => {
 
 router.put('/user/:userId/cart', async (req, res, next) => {
   try {
+    const allQuans = await orderItems.findAll({
+      where: {
+        orderId: req.body.orderId
+      }
+    })
+
+    let totalQuan = 0
+    for (let i = 0; i < allQuans.length; i++) {
+      totalQuan += allQuans[i].quantityAtSale
+    }
+
     const cart = await Orders.update(
       {
         status: true,
-        totalPrice: req.body.totalPrice
+        totalPrice: req.body.totalPrice,
+        totalQuantity: totalQuan
       },
       {
         where: {
@@ -67,10 +79,15 @@ router.put('/user/:userId/cart', async (req, res, next) => {
 router.post('/user/guest/cart', async (req, res, next) => {
   try {
     console.log('in guest put')
+    let totalQuan = 0
+    for (let i = 0; i < req.session.wands.length; i++) {
+      totalQuan += req.session.wands[i].quantity
+    }
     const newOrder = await Orders.create({
       status: true,
       userId: null,
-      totalPrice: req.body.totalPrice
+      totalPrice: req.body.totalPrice,
+      totalQuantity: totalQuan
     })
     console.log('newOrder is created')
     req.session.wands = []

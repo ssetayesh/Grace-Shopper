@@ -29,8 +29,8 @@ router.post('/', async (req, res, next) => {
       const wand = {
         id: wandImg.id,
         name: wandImg.name,
-        // item: req.body.itemId,
         price: req.body.priceAtSale,
+        quantity: req.body.quantityAtSale,
         img: wandImg.img
       }
       if (!req.session.wands) {
@@ -45,6 +45,7 @@ router.post('/', async (req, res, next) => {
       const createItemsInCart = await orderItems.create({
         itemId: req.body.itemId,
         priceAtSale: req.body.priceAtSale,
+        quantityAtSale: req.body.quantityAtSale,
         orderId: +req.session.orderId
       })
 
@@ -62,12 +63,54 @@ router.post('/', async (req, res, next) => {
 
 router.delete('/:itemId', async (req, res, next) => {
   try {
-    const deletedItem = await orderItems.destroy({
-      where: {
-        itemId: req.params.itemId
+    console.log('here in delete', req.user)
+    if (req.user !== undefined) {
+      const deletedItem = await orderItems.destroy({
+        where: {
+          itemId: req.params.itemId
+        }
+      })
+      res.json(deletedItem)
+    } else {
+      const newWands = req.session.wands.filter(wand => {
+        return req.params.itemId !== wand.id
+      })
+      console.log('NEW WANDS', newWands)
+      res.json(newWands)
+    }
+  } catch (error) {
+    next(error)
+  }
+})
+
+//edit quantity
+router.put('/', async (req, res, next) => {
+  try {
+    console.log('editing quantity in put', req.body)
+    if (req.body.orderId !== null) {
+      const itemToEdit = await orderItems.findOne({
+        where: {
+          itemId: req.body.itemId,
+          orderId: req.body.orderId
+        }
+      })
+      await itemToEdit.update({
+        quantityAtSale: +req.body.quantityAtSale,
+        priceAtSale: +req.body.priceAtSale
+      })
+      console.log('after update', itemToEdit)
+      res.json(itemToEdit)
+    } else {
+      console.log('order id is null in put')
+      for (let i = 0; i < req.session.wands.length; i++) {
+        if (req.session.wands[i].id === req.body.itemId) {
+          req.session.wands[i].quantity = +req.body.quantityAtSale
+          req.session.wands[i].price = +req.body.priceAtSale
+        }
       }
-    })
-    res.json(deletedItem)
+      console.log('new wands', req.session.wands)
+      res.json(req.session.wands)
+    }
   } catch (error) {
     next(error)
   }
